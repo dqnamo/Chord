@@ -1,19 +1,20 @@
 "use client";
 
 import { Dialog } from "@base-ui/react/dialog";
-import { ListIcon, XIcon } from "@phosphor-icons/react/dist/ssr";
+import { ListIcon, MoonStarsIcon, XIcon } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
 import { useState } from "react";
 import Logo from "@/components/Logo";
 import { SidebarNavContent } from "@/components/Sidebar";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export default function MobileHeader() {
   const [open, setOpen] = useState(false);
 
   return (
     <Dialog.Root open={open} onOpenChange={(nextOpen) => setOpen(nextOpen)}>
-      <header className="pointer-events-none fixed inset-x-0 top-0 z-100 flex h-14 xl:hidden">
-        <div className="pointer-events-auto relative mx-auto flex h-full w-full max-w-4xl items-center justify-between border-x border-b border-grayscale-3 bg-grayscale-1/95 p-2 px-4 backdrop-blur md:px-8 lg:px-16 dark:border-grayscale-2">
+      <header className="pointer-events-none fixed inset-x-0 top-0 z-100 flex h-14 md:hidden">
+        <div className="pointer-events-auto relative mx-auto flex h-full w-full items-center justify-between border-x border-grayscale-3 bg-grayscale-1/95 p-2 px-4 backdrop-blur dark:border-grayscale-2 md:px-8 lg:px-16">
           <Dialog.Trigger
             aria-label="Open navigation"
             title="Open navigation"
@@ -27,13 +28,21 @@ export default function MobileHeader() {
           >
             Chord
           </Link>
-          <div aria-hidden="true" className="size-8" />
+          <div className="flex items-center gap-2 text-grayscale-10">
+            <MoonStarsIcon
+              aria-hidden="true"
+              size={17}
+              weight="fill"
+              className="text-grayscale-10"
+            />
+            <ThemeToggle size={16} />
+          </div>
         </div>
       </header>
 
       <Dialog.Portal>
-        <Dialog.Backdrop className="fixed inset-0 z-100 bg-grayscale-1/75 xl:hidden" />
-        <Dialog.Popup className="fixed inset-y-0 left-0 z-100 flex h-dvh w-80 max-w-[calc(100vw-2rem)] flex-col gap-px border-r border-grayscale-3 bg-grayscale-1 px-4 py-4 shadow-xl outline-none xl:hidden dark:border-grayscale-2">
+        <Dialog.Backdrop className="fixed inset-0 z-100 bg-grayscale-1/75 md:hidden" />
+        <Dialog.Popup className="fixed inset-y-0 left-0 z-100 flex h-dvh w-80 max-w-[calc(100vw-2rem)] flex-col gap-px border-r border-grayscale-3 bg-grayscale-1 px-4 py-4 shadow-xl outline-none md:hidden dark:border-grayscale-2">
           <div className="mb-4 flex items-center justify-between px-2">
             <Dialog.Title className="sr-only">Navigation</Dialog.Title>
             <div className="flex items-center gap-2 font-mono text-sm font-bold uppercase text-grayscale-12">

@@ -65,7 +65,7 @@ export default function RootLayout({
         <ThemeProvider>
           <MobileHeader />
           <Sidebar />
-          <div className="root flex min-h-full flex-col pt-14 xl:pt-0">
+          <div className="root flex min-h-full flex-col pt-14 md:pt-0">
             {children}
           </div>
         </ThemeProvider>
