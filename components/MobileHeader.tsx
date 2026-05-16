@@ -32,7 +32,7 @@ export default function MobileHeader() {
       </header>
 
       <Dialog.Portal>
-        <Dialog.Backdrop className="fixed inset-0 z-100 bg-black/25 backdrop-blur-[1px] xl:hidden" />
+        <Dialog.Backdrop className="fixed inset-0 z-100 bg-grayscale-1/75 xl:hidden" />
         <Dialog.Popup className="fixed inset-y-0 left-0 z-100 flex h-dvh w-80 max-w-[calc(100vw-2rem)] flex-col gap-px border-r border-grayscale-3 bg-grayscale-1 px-4 py-4 shadow-xl outline-none xl:hidden dark:border-grayscale-2">
           <div className="mb-4 flex items-center justify-between px-2">
             <Dialog.Title className="sr-only">Navigation</Dialog.Title>
