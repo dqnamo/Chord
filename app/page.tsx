@@ -1,7 +1,6 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { CodeIcon, GithubLogoIcon } from "@phosphor-icons/react/dist/ssr";
-import Link from "next/link";
 import ComponentShowcase from "@/components/ComponentShowcase";
 import Logo from "@/components/Logo";
 import Button from "@/components/public/Button";
@@ -106,16 +105,17 @@ export default async function Home() {
             web applications.
           </p>
           <div className="flex flex-row items-center gap-2 mt-4">
-            <Button variant="primary" className="text-xs">
-              <Link
-                href="/#components"
-                className="flex flex-row items-center gap-2"
-              >
-                <CodeIcon size={16} weight="bold" />
-                View Components
-              </Link>
+            <Button variant="primary" className="text-xs" href="#components">
+              <CodeIcon size={16} weight="bold" />
+              View Components
             </Button>
-            <Button variant="secondary" className="text-xs">
+            <Button
+              variant="secondary"
+              className="text-xs"
+              href="https://github.com/dqnamo/chord"
+              target="_blank"
+              rel="noreferrer"
+            >
               <GithubLogoIcon size={16} weight="bold" />
               Github
             </Button>

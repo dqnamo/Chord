@@ -1,14 +1,20 @@
 import { cn } from "@/helpers/classname-helper";
 
-export default function Button({
-  variant = "primary",
-  className,
-  ...props
-}: {
-  variant: "primary" | "secondary";
+type ButtonSharedProps = {
+  variant?: "primary" | "secondary";
   className?: string;
   children: React.ReactNode;
-} & React.ComponentProps<"button">) {
+};
+
+type ButtonProps =
+  | (ButtonSharedProps & React.ComponentPropsWithoutRef<"button">)
+  | (ButtonSharedProps &
+      React.ComponentPropsWithoutRef<"a"> & {
+        href: string;
+      });
+
+export default function Button(props: ButtonProps) {
+  const { variant = "primary", className } = props;
   const baseClasses =
     "cursor-pointer flex flex-row px-2 gap-1.5 py-1 text-sm font-medium rounded-lg transition-colors border border-b-2 text-grayscale-11";
 
@@ -21,9 +27,31 @@ export default function Button({
 
   const classes = cn(baseClasses, variantClasses[variant], className);
 
+  if ("href" in props) {
+    const {
+      variant: _variant,
+      className: _className,
+      children,
+      ...anchorProps
+    } = props;
+
+    return (
+      <a className={classes} {...anchorProps}>
+        {children}
+      </a>
+    );
+  }
+
+  const {
+    variant: _variant,
+    className: _className,
+    children,
+    ...buttonProps
+  } = props;
+
   return (
-    <button className={classes} {...props}>
-      {props.children}
+    <button className={classes} {...buttonProps}>
+      {children}
     </button>
   );
 }
