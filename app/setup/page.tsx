@@ -1,0 +1,1151 @@
+import Button from "@/components/public/Button";
+import TextLink from "@/components/public/TextLink";
+import { Tabs } from "@/components/public/Tabs";
+import ThemeColorSelector from "@/components/ThemeColorSelector";
+import ColorPairings from "@/components/ColorPairings";
+import CodeBlock from "@/components/CodeBlock";
+import { tokenize } from "@/helpers/syntax";
+
+const globalsCSS = `@import "tailwindcss";
+@import "./theme.css";
+
+body {
+  position: relative;
+}
+
+.root {
+  isolation: isolate;
+}
+
+.small-shadow {
+  box-shadow:
+    2px 2px 4px rgba(0, 0, 0, 0.02),
+    0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.medium-shadow {
+  box-shadow:
+    0 4px 16px 0 rgba(0, 0, 0, 0.06),
+    0 1.5px 6px 0 rgba(0, 0, 0, 0.04);
+}`;
+
+const colorsCSS = `@import "@radix-ui/colors/gray.css";
+@import "@radix-ui/colors/gray-dark.css";
+
+@import "@radix-ui/colors/mauve.css";
+@import "@radix-ui/colors/mauve-dark.css";
+
+@import "@radix-ui/colors/slate.css";
+@import "@radix-ui/colors/slate-dark.css";
+
+@import "@radix-ui/colors/sage.css";
+@import "@radix-ui/colors/sage-dark.css";
+
+@import "@radix-ui/colors/olive.css";
+@import "@radix-ui/colors/olive-dark.css";
+
+@import "@radix-ui/colors/sand.css";
+@import "@radix-ui/colors/sand-dark.css";
+
+@import "@radix-ui/colors/bronze.css";
+@import "@radix-ui/colors/bronze-dark.css";
+
+@import "@radix-ui/colors/gold.css";
+@import "@radix-ui/colors/gold-dark.css";
+
+@import "@radix-ui/colors/brown.css";
+@import "@radix-ui/colors/brown-dark.css";
+
+@import "@radix-ui/colors/orange.css";
+@import "@radix-ui/colors/orange-dark.css";
+
+@import "@radix-ui/colors/tomato.css";
+@import "@radix-ui/colors/tomato-dark.css";
+
+@import "@radix-ui/colors/red.css";
+@import "@radix-ui/colors/red-dark.css";
+
+@import "@radix-ui/colors/ruby.css";
+@import "@radix-ui/colors/ruby-dark.css";
+
+@import "@radix-ui/colors/crimson.css";
+@import "@radix-ui/colors/crimson-dark.css";
+
+@import "@radix-ui/colors/pink.css";
+@import "@radix-ui/colors/pink-dark.css";
+
+@import "@radix-ui/colors/plum.css";
+@import "@radix-ui/colors/plum-dark.css";
+
+@import "@radix-ui/colors/purple.css";
+@import "@radix-ui/colors/purple-dark.css";
+
+@import "@radix-ui/colors/violet.css";
+@import "@radix-ui/colors/violet-dark.css";
+
+@import "@radix-ui/colors/iris.css";
+@import "@radix-ui/colors/iris-dark.css";
+
+@import "@radix-ui/colors/indigo.css";
+@import "@radix-ui/colors/indigo-dark.css";
+
+@import "@radix-ui/colors/blue.css";
+@import "@radix-ui/colors/blue-dark.css";
+
+@import "@radix-ui/colors/cyan.css";
+@import "@radix-ui/colors/cyan-dark.css";
+
+@import "@radix-ui/colors/teal.css";
+@import "@radix-ui/colors/teal-dark.css";
+
+@import "@radix-ui/colors/jade.css";
+@import "@radix-ui/colors/jade-dark.css";
+
+@import "@radix-ui/colors/green.css";
+@import "@radix-ui/colors/green-dark.css";
+
+@import "@radix-ui/colors/grass.css";
+@import "@radix-ui/colors/grass-dark.css";`;
+
+const themeCSS = `@import "./colors.css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
+
+  --text-tiny: 0.625rem;
+
+  --color-grayscale-1: var(--gray-1);
+  --color-grayscale-2: var(--gray-2);
+  --color-grayscale-3: var(--gray-3);
+  --color-grayscale-4: var(--gray-4);
+  --color-grayscale-5: var(--gray-5);
+  --color-grayscale-6: var(--gray-6);
+  --color-grayscale-7: var(--gray-7);
+  --color-grayscale-8: var(--gray-8);
+  --color-grayscale-9: var(--gray-9);
+  --color-grayscale-10: var(--gray-10);
+  --color-grayscale-11: var(--gray-11);
+  --color-grayscale-12: var(--gray-12);
+
+  --color-gray-1: var(--gray-1);
+  --color-gray-2: var(--gray-2);
+  --color-gray-3: var(--gray-3);
+  --color-gray-4: var(--gray-4);
+  --color-gray-5: var(--gray-5);
+  --color-gray-6: var(--gray-6);
+  --color-gray-7: var(--gray-7);
+  --color-gray-8: var(--gray-8);
+  --color-gray-9: var(--gray-9);
+  --color-gray-10: var(--gray-10);
+  --color-gray-11: var(--gray-11);
+  --color-gray-12: var(--gray-12);
+
+  --color-mauve-1: var(--mauve-1);
+  --color-mauve-2: var(--mauve-2);
+  --color-mauve-3: var(--mauve-3);
+  --color-mauve-4: var(--mauve-4);
+  --color-mauve-5: var(--mauve-5);
+  --color-mauve-6: var(--mauve-6);
+  --color-mauve-7: var(--mauve-7);
+  --color-mauve-8: var(--mauve-8);
+  --color-mauve-9: var(--mauve-9);
+  --color-mauve-10: var(--mauve-10);
+  --color-mauve-11: var(--mauve-11);
+  --color-mauve-12: var(--mauve-12);
+
+  --color-slate-1: var(--slate-1);
+  --color-slate-2: var(--slate-2);
+  --color-slate-3: var(--slate-3);
+  --color-slate-4: var(--slate-4);
+  --color-slate-5: var(--slate-5);
+  --color-slate-6: var(--slate-6);
+  --color-slate-7: var(--slate-7);
+  --color-slate-8: var(--slate-8);
+  --color-slate-9: var(--slate-9);
+  --color-slate-10: var(--slate-10);
+  --color-slate-11: var(--slate-11);
+  --color-slate-12: var(--slate-12);
+
+  --color-sage-1: var(--sage-1);
+  --color-sage-2: var(--sage-2);
+  --color-sage-3: var(--sage-3);
+  --color-sage-4: var(--sage-4);
+  --color-sage-5: var(--sage-5);
+  --color-sage-6: var(--sage-6);
+  --color-sage-7: var(--sage-7);
+  --color-sage-8: var(--sage-8);
+  --color-sage-9: var(--sage-9);
+  --color-sage-10: var(--sage-10);
+  --color-sage-11: var(--sage-11);
+  --color-sage-12: var(--sage-12);
+
+  --color-olive-1: var(--olive-1);
+  --color-olive-2: var(--olive-2);
+  --color-olive-3: var(--olive-3);
+  --color-olive-4: var(--olive-4);
+  --color-olive-5: var(--olive-5);
+  --color-olive-6: var(--olive-6);
+  --color-olive-7: var(--olive-7);
+  --color-olive-8: var(--olive-8);
+  --color-olive-9: var(--olive-9);
+  --color-olive-10: var(--olive-10);
+  --color-olive-11: var(--olive-11);
+  --color-olive-12: var(--olive-12);
+
+  --color-sand-1: var(--sand-1);
+  --color-sand-2: var(--sand-2);
+  --color-sand-3: var(--sand-3);
+  --color-sand-4: var(--sand-4);
+  --color-sand-5: var(--sand-5);
+  --color-sand-6: var(--sand-6);
+  --color-sand-7: var(--sand-7);
+  --color-sand-8: var(--sand-8);
+  --color-sand-9: var(--sand-9);
+  --color-sand-10: var(--sand-10);
+  --color-sand-11: var(--sand-11);
+  --color-sand-12: var(--sand-12);
+
+  --color-accent-1: var(--blue-1);
+  --color-accent-2: var(--blue-2);
+  --color-accent-3: var(--blue-3);
+  --color-accent-4: var(--blue-4);
+  --color-accent-5: var(--blue-5);
+  --color-accent-6: var(--blue-6);
+  --color-accent-7: var(--blue-7);
+  --color-accent-8: var(--blue-8);
+  --color-accent-9: var(--blue-9);
+  --color-accent-10: var(--blue-10);
+  --color-accent-11: var(--blue-11);
+  --color-accent-12: var(--blue-12);
+
+  --color-bronze-1: var(--bronze-1);
+  --color-bronze-2: var(--bronze-2);
+  --color-bronze-3: var(--bronze-3);
+  --color-bronze-4: var(--bronze-4);
+  --color-bronze-5: var(--bronze-5);
+  --color-bronze-6: var(--bronze-6);
+  --color-bronze-7: var(--bronze-7);
+  --color-bronze-8: var(--bronze-8);
+  --color-bronze-9: var(--bronze-9);
+  --color-bronze-10: var(--bronze-10);
+  --color-bronze-11: var(--bronze-11);
+  --color-bronze-12: var(--bronze-12);
+
+  --color-gold-1: var(--gold-1);
+  --color-gold-2: var(--gold-2);
+  --color-gold-3: var(--gold-3);
+  --color-gold-4: var(--gold-4);
+  --color-gold-5: var(--gold-5);
+  --color-gold-6: var(--gold-6);
+  --color-gold-7: var(--gold-7);
+  --color-gold-8: var(--gold-8);
+  --color-gold-9: var(--gold-9);
+  --color-gold-10: var(--gold-10);
+  --color-gold-11: var(--gold-11);
+  --color-gold-12: var(--gold-12);
+
+  --color-brown-1: var(--brown-1);
+  --color-brown-2: var(--brown-2);
+  --color-brown-3: var(--brown-3);
+  --color-brown-4: var(--brown-4);
+  --color-brown-5: var(--brown-5);
+  --color-brown-6: var(--brown-6);
+  --color-brown-7: var(--brown-7);
+  --color-brown-8: var(--brown-8);
+  --color-brown-9: var(--brown-9);
+  --color-brown-10: var(--brown-10);
+  --color-brown-11: var(--brown-11);
+  --color-brown-12: var(--brown-12);
+
+  --color-orange-1: var(--orange-1);
+  --color-orange-2: var(--orange-2);
+  --color-orange-3: var(--orange-3);
+  --color-orange-4: var(--orange-4);
+  --color-orange-5: var(--orange-5);
+  --color-orange-6: var(--orange-6);
+  --color-orange-7: var(--orange-7);
+  --color-orange-8: var(--orange-8);
+  --color-orange-9: var(--orange-9);
+  --color-orange-10: var(--orange-10);
+  --color-orange-11: var(--orange-11);
+  --color-orange-12: var(--orange-12);
+
+  --color-tomato-1: var(--tomato-1);
+  --color-tomato-2: var(--tomato-2);
+  --color-tomato-3: var(--tomato-3);
+  --color-tomato-4: var(--tomato-4);
+  --color-tomato-5: var(--tomato-5);
+  --color-tomato-6: var(--tomato-6);
+  --color-tomato-7: var(--tomato-7);
+  --color-tomato-8: var(--tomato-8);
+  --color-tomato-9: var(--tomato-9);
+  --color-tomato-10: var(--tomato-10);
+  --color-tomato-11: var(--tomato-11);
+  --color-tomato-12: var(--tomato-12);
+
+  --color-red-1: var(--red-1);
+  --color-red-2: var(--red-2);
+  --color-red-3: var(--red-3);
+  --color-red-4: var(--red-4);
+  --color-red-5: var(--red-5);
+  --color-red-6: var(--red-6);
+  --color-red-7: var(--red-7);
+  --color-red-8: var(--red-8);
+  --color-red-9: var(--red-9);
+  --color-red-10: var(--red-10);
+  --color-red-11: var(--red-11);
+  --color-red-12: var(--red-12);
+
+  --color-ruby-1: var(--ruby-1);
+  --color-ruby-2: var(--ruby-2);
+  --color-ruby-3: var(--ruby-3);
+  --color-ruby-4: var(--ruby-4);
+  --color-ruby-5: var(--ruby-5);
+  --color-ruby-6: var(--ruby-6);
+  --color-ruby-7: var(--ruby-7);
+  --color-ruby-8: var(--ruby-8);
+  --color-ruby-9: var(--ruby-9);
+  --color-ruby-10: var(--ruby-10);
+  --color-ruby-11: var(--ruby-11);
+  --color-ruby-12: var(--ruby-12);
+
+  --color-crimson-1: var(--crimson-1);
+  --color-crimson-2: var(--crimson-2);
+  --color-crimson-3: var(--crimson-3);
+  --color-crimson-4: var(--crimson-4);
+  --color-crimson-5: var(--crimson-5);
+  --color-crimson-6: var(--crimson-6);
+  --color-crimson-7: var(--crimson-7);
+  --color-crimson-8: var(--crimson-8);
+  --color-crimson-9: var(--crimson-9);
+  --color-crimson-10: var(--crimson-10);
+  --color-crimson-11: var(--crimson-11);
+  --color-crimson-12: var(--crimson-12);
+
+  --color-pink-1: var(--pink-1);
+  --color-pink-2: var(--pink-2);
+  --color-pink-3: var(--pink-3);
+  --color-pink-4: var(--pink-4);
+  --color-pink-5: var(--pink-5);
+  --color-pink-6: var(--pink-6);
+  --color-pink-7: var(--pink-7);
+  --color-pink-8: var(--pink-8);
+  --color-pink-9: var(--pink-9);
+  --color-pink-10: var(--pink-10);
+  --color-pink-11: var(--pink-11);
+  --color-pink-12: var(--pink-12);
+
+  --color-plum-1: var(--plum-1);
+  --color-plum-2: var(--plum-2);
+  --color-plum-3: var(--plum-3);
+  --color-plum-4: var(--plum-4);
+  --color-plum-5: var(--plum-5);
+  --color-plum-6: var(--plum-6);
+  --color-plum-7: var(--plum-7);
+  --color-plum-8: var(--plum-8);
+  --color-plum-9: var(--plum-9);
+  --color-plum-10: var(--plum-10);
+  --color-plum-11: var(--plum-11);
+  --color-plum-12: var(--plum-12);
+
+  --color-purple-1: var(--purple-1);
+  --color-purple-2: var(--purple-2);
+  --color-purple-3: var(--purple-3);
+  --color-purple-4: var(--purple-4);
+  --color-purple-5: var(--purple-5);
+  --color-purple-6: var(--purple-6);
+  --color-purple-7: var(--purple-7);
+  --color-purple-8: var(--purple-8);
+  --color-purple-9: var(--purple-9);
+  --color-purple-10: var(--purple-10);
+  --color-purple-11: var(--purple-11);
+  --color-purple-12: var(--purple-12);
+
+  --color-violet-1: var(--violet-1);
+  --color-violet-2: var(--violet-2);
+  --color-violet-3: var(--violet-3);
+  --color-violet-4: var(--violet-4);
+  --color-violet-5: var(--violet-5);
+  --color-violet-6: var(--violet-6);
+  --color-violet-7: var(--violet-7);
+  --color-violet-8: var(--violet-8);
+  --color-violet-9: var(--violet-9);
+  --color-violet-10: var(--violet-10);
+  --color-violet-11: var(--violet-11);
+  --color-violet-12: var(--violet-12);
+
+  --color-iris-1: var(--iris-1);
+  --color-iris-2: var(--iris-2);
+  --color-iris-3: var(--iris-3);
+  --color-iris-4: var(--iris-4);
+  --color-iris-5: var(--iris-5);
+  --color-iris-6: var(--iris-6);
+  --color-iris-7: var(--iris-7);
+  --color-iris-8: var(--iris-8);
+  --color-iris-9: var(--iris-9);
+  --color-iris-10: var(--iris-10);
+  --color-iris-11: var(--iris-11);
+  --color-iris-12: var(--iris-12);
+
+  --color-indigo-1: var(--indigo-1);
+  --color-indigo-2: var(--indigo-2);
+  --color-indigo-3: var(--indigo-3);
+  --color-indigo-4: var(--indigo-4);
+  --color-indigo-5: var(--indigo-5);
+  --color-indigo-6: var(--indigo-6);
+  --color-indigo-7: var(--indigo-7);
+  --color-indigo-8: var(--indigo-8);
+  --color-indigo-9: var(--indigo-9);
+  --color-indigo-10: var(--indigo-10);
+  --color-indigo-11: var(--indigo-11);
+  --color-indigo-12: var(--indigo-12);
+
+  --color-blue-1: var(--blue-1);
+  --color-blue-2: var(--blue-2);
+  --color-blue-3: var(--blue-3);
+  --color-blue-4: var(--blue-4);
+  --color-blue-5: var(--blue-5);
+  --color-blue-6: var(--blue-6);
+  --color-blue-7: var(--blue-7);
+  --color-blue-8: var(--blue-8);
+  --color-blue-9: var(--blue-9);
+  --color-blue-10: var(--blue-10);
+  --color-blue-11: var(--blue-11);
+  --color-blue-12: var(--blue-12);
+
+  --color-cyan-1: var(--cyan-1);
+  --color-cyan-2: var(--cyan-2);
+  --color-cyan-3: var(--cyan-3);
+  --color-cyan-4: var(--cyan-4);
+  --color-cyan-5: var(--cyan-5);
+  --color-cyan-6: var(--cyan-6);
+  --color-cyan-7: var(--cyan-7);
+  --color-cyan-8: var(--cyan-8);
+  --color-cyan-9: var(--cyan-9);
+  --color-cyan-10: var(--cyan-10);
+  --color-cyan-11: var(--cyan-11);
+  --color-cyan-12: var(--cyan-12);
+
+  --color-teal-1: var(--teal-1);
+  --color-teal-2: var(--teal-2);
+  --color-teal-3: var(--teal-3);
+  --color-teal-4: var(--teal-4);
+  --color-teal-5: var(--teal-5);
+  --color-teal-6: var(--teal-6);
+  --color-teal-7: var(--teal-7);
+  --color-teal-8: var(--teal-8);
+  --color-teal-9: var(--teal-9);
+  --color-teal-10: var(--teal-10);
+  --color-teal-11: var(--teal-11);
+  --color-teal-12: var(--teal-12);
+
+  --color-jade-1: var(--jade-1);
+  --color-jade-2: var(--jade-2);
+  --color-jade-3: var(--jade-3);
+  --color-jade-4: var(--jade-4);
+  --color-jade-5: var(--jade-5);
+  --color-jade-6: var(--jade-6);
+  --color-jade-7: var(--jade-7);
+  --color-jade-8: var(--jade-8);
+  --color-jade-9: var(--jade-9);
+  --color-jade-10: var(--jade-10);
+  --color-jade-11: var(--jade-11);
+  --color-jade-12: var(--jade-12);
+
+  --color-green-1: var(--green-1);
+  --color-green-2: var(--green-2);
+  --color-green-3: var(--green-3);
+  --color-green-4: var(--green-4);
+  --color-green-5: var(--green-5);
+  --color-green-6: var(--green-6);
+  --color-green-7: var(--green-7);
+  --color-green-8: var(--green-8);
+  --color-green-9: var(--green-9);
+  --color-green-10: var(--green-10);
+  --color-green-11: var(--green-11);
+  --color-green-12: var(--green-12);
+
+  --color-grass-1: var(--grass-1);
+  --color-grass-2: var(--grass-2);
+  --color-grass-3: var(--grass-3);
+  --color-grass-4: var(--grass-4);
+  --color-grass-5: var(--grass-5);
+  --color-grass-6: var(--grass-6);
+  --color-grass-7: var(--grass-7);
+  --color-grass-8: var(--grass-8);
+  --color-grass-9: var(--grass-9);
+  --color-grass-10: var(--grass-10);
+  --color-grass-11: var(--grass-11);
+  --color-grass-12: var(--grass-12);
+}
+
+:root,
+[data-grayscale="gray"] {
+  --color-grayscale-1: var(--gray-1);
+  --color-grayscale-2: var(--gray-2);
+  --color-grayscale-3: var(--gray-3);
+  --color-grayscale-4: var(--gray-4);
+  --color-grayscale-5: var(--gray-5);
+  --color-grayscale-6: var(--gray-6);
+  --color-grayscale-7: var(--gray-7);
+  --color-grayscale-8: var(--gray-8);
+  --color-grayscale-9: var(--gray-9);
+  --color-grayscale-10: var(--gray-10);
+  --color-grayscale-11: var(--gray-11);
+  --color-grayscale-12: var(--gray-12);
+}
+
+[data-grayscale="mauve"] {
+  --color-grayscale-1: var(--mauve-1);
+  --color-grayscale-2: var(--mauve-2);
+  --color-grayscale-3: var(--mauve-3);
+  --color-grayscale-4: var(--mauve-4);
+  --color-grayscale-5: var(--mauve-5);
+  --color-grayscale-6: var(--mauve-6);
+  --color-grayscale-7: var(--mauve-7);
+  --color-grayscale-8: var(--mauve-8);
+  --color-grayscale-9: var(--mauve-9);
+  --color-grayscale-10: var(--mauve-10);
+  --color-grayscale-11: var(--mauve-11);
+  --color-grayscale-12: var(--mauve-12);
+}
+
+[data-grayscale="slate"] {
+  --color-grayscale-1: var(--slate-1);
+  --color-grayscale-2: var(--slate-2);
+  --color-grayscale-3: var(--slate-3);
+  --color-grayscale-4: var(--slate-4);
+  --color-grayscale-5: var(--slate-5);
+  --color-grayscale-6: var(--slate-6);
+  --color-grayscale-7: var(--slate-7);
+  --color-grayscale-8: var(--slate-8);
+  --color-grayscale-9: var(--slate-9);
+  --color-grayscale-10: var(--slate-10);
+  --color-grayscale-11: var(--slate-11);
+  --color-grayscale-12: var(--slate-12);
+}
+
+[data-grayscale="sage"] {
+  --color-grayscale-1: var(--sage-1);
+  --color-grayscale-2: var(--sage-2);
+  --color-grayscale-3: var(--sage-3);
+  --color-grayscale-4: var(--sage-4);
+  --color-grayscale-5: var(--sage-5);
+  --color-grayscale-6: var(--sage-6);
+  --color-grayscale-7: var(--sage-7);
+  --color-grayscale-8: var(--sage-8);
+  --color-grayscale-9: var(--sage-9);
+  --color-grayscale-10: var(--sage-10);
+  --color-grayscale-11: var(--sage-11);
+  --color-grayscale-12: var(--sage-12);
+}
+
+[data-grayscale="olive"] {
+  --color-grayscale-1: var(--olive-1);
+  --color-grayscale-2: var(--olive-2);
+  --color-grayscale-3: var(--olive-3);
+  --color-grayscale-4: var(--olive-4);
+  --color-grayscale-5: var(--olive-5);
+  --color-grayscale-6: var(--olive-6);
+  --color-grayscale-7: var(--olive-7);
+  --color-grayscale-8: var(--olive-8);
+  --color-grayscale-9: var(--olive-9);
+  --color-grayscale-10: var(--olive-10);
+  --color-grayscale-11: var(--olive-11);
+  --color-grayscale-12: var(--olive-12);
+}
+
+[data-grayscale="sand"] {
+  --color-grayscale-1: var(--sand-1);
+  --color-grayscale-2: var(--sand-2);
+  --color-grayscale-3: var(--sand-3);
+  --color-grayscale-4: var(--sand-4);
+  --color-grayscale-5: var(--sand-5);
+  --color-grayscale-6: var(--sand-6);
+  --color-grayscale-7: var(--sand-7);
+  --color-grayscale-8: var(--sand-8);
+  --color-grayscale-9: var(--sand-9);
+  --color-grayscale-10: var(--sand-10);
+  --color-grayscale-11: var(--sand-11);
+  --color-grayscale-12: var(--sand-12);
+}
+
+:root,
+[data-accent="bronze"] {
+  --color-accent-1: var(--bronze-1);
+  --color-accent-2: var(--bronze-2);
+  --color-accent-3: var(--bronze-3);
+  --color-accent-4: var(--bronze-4);
+  --color-accent-5: var(--bronze-5);
+  --color-accent-6: var(--bronze-6);
+  --color-accent-7: var(--bronze-7);
+  --color-accent-8: var(--bronze-8);
+  --color-accent-9: var(--bronze-9);
+  --color-accent-10: var(--bronze-10);
+  --color-accent-11: var(--bronze-11);
+  --color-accent-12: var(--bronze-12);
+}
+
+[data-accent="gold"] {
+  --color-accent-1: var(--gold-1);
+  --color-accent-2: var(--gold-2);
+  --color-accent-3: var(--gold-3);
+  --color-accent-4: var(--gold-4);
+  --color-accent-5: var(--gold-5);
+  --color-accent-6: var(--gold-6);
+  --color-accent-7: var(--gold-7);
+  --color-accent-8: var(--gold-8);
+  --color-accent-9: var(--gold-9);
+  --color-accent-10: var(--gold-10);
+  --color-accent-11: var(--gold-11);
+  --color-accent-12: var(--gold-12);
+}
+
+[data-accent="brown"] {
+  --color-accent-1: var(--brown-1);
+  --color-accent-2: var(--brown-2);
+  --color-accent-3: var(--brown-3);
+  --color-accent-4: var(--brown-4);
+  --color-accent-5: var(--brown-5);
+  --color-accent-6: var(--brown-6);
+  --color-accent-7: var(--brown-7);
+  --color-accent-8: var(--brown-8);
+  --color-accent-9: var(--brown-9);
+  --color-accent-10: var(--brown-10);
+  --color-accent-11: var(--brown-11);
+  --color-accent-12: var(--brown-12);
+}
+
+[data-accent="orange"] {
+  --color-accent-1: var(--orange-1);
+  --color-accent-2: var(--orange-2);
+  --color-accent-3: var(--orange-3);
+  --color-accent-4: var(--orange-4);
+  --color-accent-5: var(--orange-5);
+  --color-accent-6: var(--orange-6);
+  --color-accent-7: var(--orange-7);
+  --color-accent-8: var(--orange-8);
+  --color-accent-9: var(--orange-9);
+  --color-accent-10: var(--orange-10);
+  --color-accent-11: var(--orange-11);
+  --color-accent-12: var(--orange-12);
+}
+
+[data-accent="tomato"] {
+  --color-accent-1: var(--tomato-1);
+  --color-accent-2: var(--tomato-2);
+  --color-accent-3: var(--tomato-3);
+  --color-accent-4: var(--tomato-4);
+  --color-accent-5: var(--tomato-5);
+  --color-accent-6: var(--tomato-6);
+  --color-accent-7: var(--tomato-7);
+  --color-accent-8: var(--tomato-8);
+  --color-accent-9: var(--tomato-9);
+  --color-accent-10: var(--tomato-10);
+  --color-accent-11: var(--tomato-11);
+  --color-accent-12: var(--tomato-12);
+}
+
+[data-accent="red"] {
+  --color-accent-1: var(--red-1);
+  --color-accent-2: var(--red-2);
+  --color-accent-3: var(--red-3);
+  --color-accent-4: var(--red-4);
+  --color-accent-5: var(--red-5);
+  --color-accent-6: var(--red-6);
+  --color-accent-7: var(--red-7);
+  --color-accent-8: var(--red-8);
+  --color-accent-9: var(--red-9);
+  --color-accent-10: var(--red-10);
+  --color-accent-11: var(--red-11);
+  --color-accent-12: var(--red-12);
+}
+
+[data-accent="ruby"] {
+  --color-accent-1: var(--ruby-1);
+  --color-accent-2: var(--ruby-2);
+  --color-accent-3: var(--ruby-3);
+  --color-accent-4: var(--ruby-4);
+  --color-accent-5: var(--ruby-5);
+  --color-accent-6: var(--ruby-6);
+  --color-accent-7: var(--ruby-7);
+  --color-accent-8: var(--ruby-8);
+  --color-accent-9: var(--ruby-9);
+  --color-accent-10: var(--ruby-10);
+  --color-accent-11: var(--ruby-11);
+  --color-accent-12: var(--ruby-12);
+}
+
+[data-accent="crimson"] {
+  --color-accent-1: var(--crimson-1);
+  --color-accent-2: var(--crimson-2);
+  --color-accent-3: var(--crimson-3);
+  --color-accent-4: var(--crimson-4);
+  --color-accent-5: var(--crimson-5);
+  --color-accent-6: var(--crimson-6);
+  --color-accent-7: var(--crimson-7);
+  --color-accent-8: var(--crimson-8);
+  --color-accent-9: var(--crimson-9);
+  --color-accent-10: var(--crimson-10);
+  --color-accent-11: var(--crimson-11);
+  --color-accent-12: var(--crimson-12);
+}
+
+[data-accent="pink"] {
+  --color-accent-1: var(--pink-1);
+  --color-accent-2: var(--pink-2);
+  --color-accent-3: var(--pink-3);
+  --color-accent-4: var(--pink-4);
+  --color-accent-5: var(--pink-5);
+  --color-accent-6: var(--pink-6);
+  --color-accent-7: var(--pink-7);
+  --color-accent-8: var(--pink-8);
+  --color-accent-9: var(--pink-9);
+  --color-accent-10: var(--pink-10);
+  --color-accent-11: var(--pink-11);
+  --color-accent-12: var(--pink-12);
+}
+
+[data-accent="plum"] {
+  --color-accent-1: var(--plum-1);
+  --color-accent-2: var(--plum-2);
+  --color-accent-3: var(--plum-3);
+  --color-accent-4: var(--plum-4);
+  --color-accent-5: var(--plum-5);
+  --color-accent-6: var(--plum-6);
+  --color-accent-7: var(--plum-7);
+  --color-accent-8: var(--plum-8);
+  --color-accent-9: var(--plum-9);
+  --color-accent-10: var(--plum-10);
+  --color-accent-11: var(--plum-11);
+  --color-accent-12: var(--plum-12);
+}
+
+[data-accent="purple"] {
+  --color-accent-1: var(--purple-1);
+  --color-accent-2: var(--purple-2);
+  --color-accent-3: var(--purple-3);
+  --color-accent-4: var(--purple-4);
+  --color-accent-5: var(--purple-5);
+  --color-accent-6: var(--purple-6);
+  --color-accent-7: var(--purple-7);
+  --color-accent-8: var(--purple-8);
+  --color-accent-9: var(--purple-9);
+  --color-accent-10: var(--purple-10);
+  --color-accent-11: var(--purple-11);
+  --color-accent-12: var(--purple-12);
+}
+
+[data-accent="violet"] {
+  --color-accent-1: var(--violet-1);
+  --color-accent-2: var(--violet-2);
+  --color-accent-3: var(--violet-3);
+  --color-accent-4: var(--violet-4);
+  --color-accent-5: var(--violet-5);
+  --color-accent-6: var(--violet-6);
+  --color-accent-7: var(--violet-7);
+  --color-accent-8: var(--violet-8);
+  --color-accent-9: var(--violet-9);
+  --color-accent-10: var(--violet-10);
+  --color-accent-11: var(--violet-11);
+  --color-accent-12: var(--violet-12);
+}
+
+[data-accent="iris"] {
+  --color-accent-1: var(--iris-1);
+  --color-accent-2: var(--iris-2);
+  --color-accent-3: var(--iris-3);
+  --color-accent-4: var(--iris-4);
+  --color-accent-5: var(--iris-5);
+  --color-accent-6: var(--iris-6);
+  --color-accent-7: var(--iris-7);
+  --color-accent-8: var(--iris-8);
+  --color-accent-9: var(--iris-9);
+  --color-accent-10: var(--iris-10);
+  --color-accent-11: var(--iris-11);
+  --color-accent-12: var(--iris-12);
+}
+
+[data-accent="indigo"] {
+  --color-accent-1: var(--indigo-1);
+  --color-accent-2: var(--indigo-2);
+  --color-accent-3: var(--indigo-3);
+  --color-accent-4: var(--indigo-4);
+  --color-accent-5: var(--indigo-5);
+  --color-accent-6: var(--indigo-6);
+  --color-accent-7: var(--indigo-7);
+  --color-accent-8: var(--indigo-8);
+  --color-accent-9: var(--indigo-9);
+  --color-accent-10: var(--indigo-10);
+  --color-accent-11: var(--indigo-11);
+  --color-accent-12: var(--indigo-12);
+}
+
+[data-accent="blue"] {
+  --color-accent-1: var(--blue-1);
+  --color-accent-2: var(--blue-2);
+  --color-accent-3: var(--blue-3);
+  --color-accent-4: var(--blue-4);
+  --color-accent-5: var(--blue-5);
+  --color-accent-6: var(--blue-6);
+  --color-accent-7: var(--blue-7);
+  --color-accent-8: var(--blue-8);
+  --color-accent-9: var(--blue-9);
+  --color-accent-10: var(--blue-10);
+  --color-accent-11: var(--blue-11);
+  --color-accent-12: var(--blue-12);
+}
+
+[data-accent="cyan"] {
+  --color-accent-1: var(--cyan-1);
+  --color-accent-2: var(--cyan-2);
+  --color-accent-3: var(--cyan-3);
+  --color-accent-4: var(--cyan-4);
+  --color-accent-5: var(--cyan-5);
+  --color-accent-6: var(--cyan-6);
+  --color-accent-7: var(--cyan-7);
+  --color-accent-8: var(--cyan-8);
+  --color-accent-9: var(--cyan-9);
+  --color-accent-10: var(--cyan-10);
+  --color-accent-11: var(--cyan-11);
+  --color-accent-12: var(--cyan-12);
+}
+
+[data-accent="teal"] {
+  --color-accent-1: var(--teal-1);
+  --color-accent-2: var(--teal-2);
+  --color-accent-3: var(--teal-3);
+  --color-accent-4: var(--teal-4);
+  --color-accent-5: var(--teal-5);
+  --color-accent-6: var(--teal-6);
+  --color-accent-7: var(--teal-7);
+  --color-accent-8: var(--teal-8);
+  --color-accent-9: var(--teal-9);
+  --color-accent-10: var(--teal-10);
+  --color-accent-11: var(--teal-11);
+  --color-accent-12: var(--teal-12);
+}
+
+[data-accent="jade"] {
+  --color-accent-1: var(--jade-1);
+  --color-accent-2: var(--jade-2);
+  --color-accent-3: var(--jade-3);
+  --color-accent-4: var(--jade-4);
+  --color-accent-5: var(--jade-5);
+  --color-accent-6: var(--jade-6);
+  --color-accent-7: var(--jade-7);
+  --color-accent-8: var(--jade-8);
+  --color-accent-9: var(--jade-9);
+  --color-accent-10: var(--jade-10);
+  --color-accent-11: var(--jade-11);
+  --color-accent-12: var(--jade-12);
+}
+
+[data-accent="green"] {
+  --color-accent-1: var(--green-1);
+  --color-accent-2: var(--green-2);
+  --color-accent-3: var(--green-3);
+  --color-accent-4: var(--green-4);
+  --color-accent-5: var(--green-5);
+  --color-accent-6: var(--green-6);
+  --color-accent-7: var(--green-7);
+  --color-accent-8: var(--green-8);
+  --color-accent-9: var(--green-9);
+  --color-accent-10: var(--green-10);
+  --color-accent-11: var(--green-11);
+  --color-accent-12: var(--green-12);
+}
+
+[data-accent="grass"] {
+  --color-accent-1: var(--grass-1);
+  --color-accent-2: var(--grass-2);
+  --color-accent-3: var(--grass-3);
+  --color-accent-4: var(--grass-4);
+  --color-accent-5: var(--grass-5);
+  --color-accent-6: var(--grass-6);
+  --color-accent-7: var(--grass-7);
+  --color-accent-8: var(--grass-8);
+  --color-accent-9: var(--grass-9);
+  --color-accent-10: var(--grass-10);
+  --color-accent-11: var(--grass-11);
+  --color-accent-12: var(--grass-12);
+}`;
+
+const cssFiles = {
+  "globals.css": globalsCSS,
+  "theme.css": themeCSS,
+  "colors.css": colorsCSS,
+};
+
+const installCommand =
+  "npm install @radix-ui/colors @phosphor-icons/react motion tailwind-merge clsx";
+
+const classnameHelperTS = `import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}`;
+
+export default async function SetupPage() {
+  const [tokenizedCSS, tokenizedInstall, tokenizedHelper] = await Promise.all([
+    Promise.all(
+      Object.entries(cssFiles).map(async ([filename, content]) => {
+        const lines = await tokenize(content, "css");
+        return [filename, lines] as const;
+      }),
+    ),
+    tokenize(installCommand, "shellscript"),
+    tokenize(classnameHelperTS, "typescript"),
+  ]);
+  return (
+    <div className="flex flex-col max-w-4xl mx-auto w-full border-x border-grayscale-3 dark:border-grayscale-2 p-4 md:p-8 lg:p-16">
+      <div className="flex flex-col p-2">
+        <div className="flex flex-col p-2">
+          <h2 className="font-medium text-grayscale-11">Setup</h2>
+          <p className="text-grayscale-10 text-sm max-w-md text-balance">
+            How to get started with Chord.
+          </p>
+          <h3 className="font-medium text-grayscale-11 mt-8">Prerequisites</h3>
+          <p className="text-grayscale-10 text-sm text-pretty">
+            There are 2 base requirements that are needed in your project to
+            make Chord work.
+          </p>
+          <h4 className="font-medium text-sm text-grayscale-11 mt-2">
+            Tailwind CSS
+          </h4>
+          <p className="text-grayscale-10 text-sm">
+            Chord is built on top of Tailwind CSS, so you need to have it
+            installed in your project. You can install it by running the
+            following command. You can find the{" "}
+            <TextLink href="https://tailwindcss.com/docs/installation">
+              installation guide
+            </TextLink>
+          </p>
+          <h4 className="font-medium text-sm text-grayscale-11 mt-2">
+            Base UI
+          </h4>
+          <p className="text-grayscale-10 text-sm">
+            Chord is built on top of Base UI primitives, so you need to have it
+            installed in your project. You can install it by running the
+            following command. You can find the{" "}
+            <TextLink href="https://tailwindcss.com/docs/installation">
+              installation guide
+            </TextLink>
+          </p>
+          <h3 className="font-medium text-sm text-grayscale-11 mt-8">
+            Required Additonal Packages
+          </h3>
+          <p className="text-grayscale-10 text-sm text-pretty">
+            Chord requires the following packages to be installed in your
+            project. These are required to power the component primitivaes and
+            the animations etc. You can run the following command to install all
+            of them.
+          </p>
+        </div>
+
+        <div className="flex flex-col gap-2 mt-4 bg-grayscale-2 rounded-xl p-1.5 border border-grayscale-3">
+          <div className="flex flex-row bg-grayscale-1 items-center justify-between rounded-lg border border-grayscale-3 p-2">
+            <CodeBlock lines={tokenizedInstall} />
+            <Button variant="secondary" className="text-xs">
+              Copy
+            </Button>
+          </div>
+        </div>
+
+        <div className="flex flex-col p-2">
+          <h4 className="font-medium text-sm text-grayscale-11 mt-8">
+            CSS Files
+          </h4>
+          <p className="text-grayscale-10 text-sm">
+            Add the following CSS files to your project.
+          </p>
+        </div>
+
+        <div className="flex flex-col gap-2 mt-4 bg-grayscale-2 rounded-xl p-1.5 border border-grayscale-3">
+          <Tabs.Root className="small-shadow flex flex-col bg-grayscale-1 rounded-lg border border-grayscale-3">
+            <div className="flex flex-row items-center justify-between p-2 border-b border-grayscale-2">
+              <Tabs.List>
+                <Tabs.Tab
+                  value="globals.css"
+                  className="text-grayscale-10 text-xs"
+                >
+                  globals.css
+                </Tabs.Tab>
+                <Tabs.Tab
+                  value="theme.css"
+                  className="text-grayscale-10 text-xs"
+                >
+                  theme.css
+                </Tabs.Tab>
+                <Tabs.Tab
+                  value="colors.css"
+                  className="text-grayscale-10 text-xs"
+                >
+                  colors.css
+                </Tabs.Tab>
+
+                <Tabs.Indicator />
+              </Tabs.List>
+              <Button variant="secondary" className="text-xs">
+                Copy
+              </Button>
+            </div>
+            <div className="flex flex-col max-h-96 overflow-auto">
+              {tokenizedCSS.map(([filename, lines]) => (
+                <Tabs.Panel key={filename} value={filename}>
+                  <CodeBlock lines={lines} />
+                </Tabs.Panel>
+              ))}
+            </div>
+          </Tabs.Root>
+        </div>
+
+        <div className="flex flex-col p-2">
+          <h4 className="font-medium text-sm text-grayscale-11 mt-8">
+            Helper Files
+          </h4>
+          <p className="text-grayscale-10 text-sm">
+            Add the following helper file to your project. This utility merges
+            Tailwind classes safely and is used across all Chord components.
+          </p>
+        </div>
+
+        <div className="flex flex-col gap-2 mt-4 bg-grayscale-2 rounded-xl p-1.5 border border-grayscale-3">
+          <div className="flex flex-col small-shadow bg-grayscale-1 rounded-lg border border-grayscale-3">
+            <div className="flex flex-row items-center justify-between p-2 border-b border-grayscale-2">
+              <p className="text-grayscale-10 text-xs font-mono px-2">
+                helpers/classname-helper.ts
+              </p>
+              <Button variant="secondary" className="text-xs">
+                Copy
+              </Button>
+            </div>
+            <div className="flex flex-col max-h-96 overflow-auto">
+              <CodeBlock lines={tokenizedHelper} />
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col p-2">
+          <h3 className="font-medium text-grayscale-11 mt-8">
+            Choosing Your Colors
+          </h3>
+          <p className="text-grayscale-10 text-sm text-pretty">
+            Chord uses two color axes that you can customise to match your
+            brand: a <strong className="text-grayscale-11">grayscale</strong>{" "}
+            for backgrounds, borders, and text, and an{" "}
+            <strong className="text-grayscale-11">accent</strong> for
+            interactive elements and highlights.
+          </p>
+          <h4 className="font-medium text-sm text-grayscale-11 mt-4">
+            Grayscale
+          </h4>
+          <p className="text-grayscale-10 text-sm text-pretty">
+            In{" "}
+            <code className="text-xs font-mono bg-grayscale-3 px-1.5 py-0.5 rounded">
+              theme.css
+            </code>
+            , the default{" "}
+            <code className="text-xs font-mono bg-grayscale-3 px-1.5 py-0.5 rounded">
+              :root
+            </code>{" "}
+            block maps{" "}
+            <code className="text-xs font-mono bg-grayscale-3 px-1.5 py-0.5 rounded">
+              --color-grayscale-*
+            </code>{" "}
+            to{" "}
+            <code className="text-xs font-mono bg-grayscale-3 px-1.5 py-0.5 rounded">
+              gray
+            </code>
+            . Change it to any of the available grayscale palettes:
+          </p>
+          <div className="mt-2">
+            <ThemeColorSelector axis="grayscale" variant="badge" />
+          </div>
+          <h4 className="font-medium text-sm text-grayscale-11 mt-4">Accent</h4>
+          <p className="text-grayscale-10 text-sm text-pretty">
+            Similarly, the{" "}
+            <code className="text-xs font-mono bg-grayscale-3 px-1.5 py-0.5 rounded">
+              --color-accent-*
+            </code>{" "}
+            variables default to{" "}
+            <code className="text-xs font-mono bg-grayscale-3 px-1.5 py-0.5 rounded">
+              blue
+            </code>
+            . Swap it to any of the accent palettes:
+          </p>
+          <div className="mt-2">
+            <ThemeColorSelector axis="accent" variant="badge" />
+          </div>
+          <p className="text-grayscale-10 text-sm text-pretty mt-4">
+            To apply your choice, set the{" "}
+            <code className="text-xs font-mono bg-grayscale-3 px-1.5 py-0.5 rounded">
+              data-grayscale
+            </code>{" "}
+            and{" "}
+            <code className="text-xs font-mono bg-grayscale-3 px-1.5 py-0.5 rounded">
+              data-accent
+            </code>{" "}
+            attributes on your root element (e.g.{" "}
+            <code className="text-xs font-mono bg-grayscale-3 px-1.5 py-0.5 rounded">
+              {'<html data-grayscale="slate" data-accent="violet">'}
+            </code>
+            ), or change the default values directly in the{" "}
+            <code className="text-xs font-mono bg-grayscale-3 px-1.5 py-0.5 rounded">
+              :root
+            </code>{" "}
+            block of{" "}
+            <code className="text-xs font-mono bg-grayscale-3 px-1.5 py-0.5 rounded">
+              theme.css
+            </code>
+            .
+          </p>
+
+          <h3 className="font-medium text-grayscale-11 mt-8">Color Pairings</h3>
+          <p className="text-grayscale-10 text-sm text-pretty">
+            When choosing a grayscale to pair with your accent, you have two
+            approaches.
+          </p>
+
+          <h4 className="font-medium text-sm text-grayscale-11 mt-4">
+            Neutral pairing
+          </h4>
+          <p className="text-grayscale-10 text-sm text-pretty">
+            If you want a neutral vibe, or you want to keep things simple,{" "}
+            <code className="text-xs font-mono bg-grayscale-3 px-1.5 py-0.5 rounded">
+              gray
+            </code>{" "}
+            will work well with any hue or palette.
+          </p>
+
+          <h4 className="font-medium text-sm text-grayscale-11 mt-4">
+            Natural pairing
+          </h4>
+          <p className="text-grayscale-10 text-sm text-pretty">
+            Alternatively, choose the grayscale which is saturated with the hue
+            closest to your accent. The difference is subtle, but this creates a
+            more colorful and harmonious vibe.
+          </p>
+
+          <ColorPairings />
+
+          <h3 className="font-medium text-grayscale-11 mt-8">
+            Understanding the Scale
+          </h3>
+          <p className="text-grayscale-10 text-sm text-pretty">
+            Each Radix color palette has 12 steps, and each step is designed for
+            a specific use case. Read more on the{" "}
+            <TextLink href="https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale">
+              Radix Colors documentation
+            </TextLink>
+            .
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}

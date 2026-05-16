@@ -1,65 +1,234 @@
-import Image from "next/image";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
+import { CodeIcon, GithubLogoIcon } from "@phosphor-icons/react/dist/ssr";
+import Button from "@/components/public/Button";
+import TextLink from "@/components/public/TextLink";
+import { Tabs } from "@/components/public/Tabs";
+import { Switch } from "@/components/public/Switch";
+import Section from "@/components/Section";
+import ThemeColorSelector from "@/components/ThemeColorSelector";
+import ComponentShowcase from "@/components/ComponentShowcase";
+import Logo from "@/components/Logo";
+import Link from "next/link";
+import { tokenize } from "@/helpers/syntax";
 
-export default function Home() {
+async function getComponentCode(filePath: string) {
+  const source = await readFile(join(process.cwd(), filePath), "utf8");
+  return tokenize(source);
+}
+
+const BUTTON_USAGE = `import Button from "@/components/public/Button";
+
+<Button variant="primary">
+  Click me
+</Button>
+
+<Button variant="secondary">
+  Secondary
+</Button>`;
+
+const TEXT_LINK_USAGE = `import TextLink from "@/components/public/TextLink";
+
+<TextLink href="/about">
+  Learn more
+</TextLink>`;
+
+const TABS_USAGE = `import { Tabs } from "@/components/public/Tabs";
+
+<Tabs.Root defaultValue="one">
+  <Tabs.List>
+    <Tabs.Tab value="one">Tab One</Tabs.Tab>
+    <Tabs.Tab value="two">Tab Two</Tabs.Tab>
+    <Tabs.Indicator />
+  </Tabs.List>
+  <Tabs.Panel value="one">Content one</Tabs.Panel>
+  <Tabs.Panel value="two">Content two</Tabs.Panel>
+</Tabs.Root>`;
+
+const SWITCH_USAGE = `import { Switch } from "@/components/public/Switch";
+
+<Switch.Composed />
+
+<Switch.Composed defaultChecked />`;
+
+export default async function Home() {
+  const [
+    buttonComponentCode,
+    buttonUsageCode,
+    textLinkComponentCode,
+    textLinkUsageCode,
+    tabsComponentCode,
+    tabsUsageCode,
+    switchComponentCode,
+    switchUsageCode,
+  ] = await Promise.all([
+    getComponentCode("components/public/Button.tsx"),
+    tokenize(BUTTON_USAGE),
+    getComponentCode("components/public/TextLink.tsx"),
+    tokenize(TEXT_LINK_USAGE),
+    getComponentCode("components/public/Tabs.tsx"),
+    tokenize(TABS_USAGE),
+    getComponentCode("components/public/Switch.tsx"),
+    tokenize(SWITCH_USAGE),
+  ]);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <div className="flex flex-col w-full divide-y divide-grayscale-3 dark:divide-grayscale-2">
+      <div className="relative flex flex-col max-w-4xl mx-auto w-full border-x border-grayscale-3 dark:border-grayscale-2 p-4 md:p-8 lg:p-16">
+        <div className="flex flex-col gap-px p-2">
+          <Logo />
+          <div className="flex flex-row items-center gap-1 mt-3">
+            <h1 className="font-bold text-2xl text-grayscale-12 font-mono uppercase">
+              Chord
+            </h1>
+            <p className="text-grayscale-10 text-sm max-w-md text-balance mt-2">
+              by
+            </p>
+            <TextLink
+              href="https://dqnamo.com"
+              target="_blank"
+              className="text-sm mt-2"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+              dqnamo
+            </TextLink>
+          </div>
+          <p className="text-grayscale-11 text-sm max-w-md text-balance">
+            An opinionated design language and UI Library for building beautiful
+            web applications.
+          </p>
+          <div className="flex flex-row items-center gap-2 mt-4">
+            <Button variant="primary" className="text-xs">
+              <Link
+                href="/#components"
+                className="flex flex-row items-center gap-2"
+              >
+                <CodeIcon size={16} weight="bold" />
+                View Components
+              </Link>
+            </Button>
+            <Button variant="secondary" className="text-xs">
+              <GithubLogoIcon size={16} weight="bold" />
+              Github
+            </Button>
+          </div>
+        </div>
+      </div>
+      <div className="flex flex-col max-w-4xl mx-auto w-full border-x border-grayscale-3 dark:border-grayscale-2 p-4 md:p-8 lg:p-16">
+        <div className="flex flex-col p-2">
+          <h2 className="font-medium text-grayscale-11">
+            First, let&apos;s choose your colors.
+          </h2>
+          <p className="text-grayscale-10 text-sm max-w-md text-balance">
+            Pick a grayscale and an accent color to get started.
+          </p>
+          <div className="flex flex-col gap-2 mt-4">
+            <p className="text-grayscale-9 text-tiny tracking-wide font-mono uppercase font-bold">
+              Grayscale Color
+            </p>
+            <ThemeColorSelector axis="grayscale" />
+          </div>
+          <div className="flex flex-col gap-2 mt-4">
+            <p className="text-grayscale-9 text-tiny tracking-wide font-mono uppercase font-bold">
+              Accent Color
+            </p>
+            <ThemeColorSelector axis="accent" />
+          </div>
+        </div>
+      </div>
+      <Section id="components">
+        <div className="flex flex-col gap-px p-2">
+          <h2 className="font-medium text-grayscale-11">The Components</h2>
+          <p className="text-grayscale-10 text-sm max-w-md text-balance">
+            Ready to copy code for your project.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <div className="flex flex-col gap-8 my-8">
+          <ComponentShowcase
+            title="The Button"
+            previewTabs={[
+              {
+                value: "primary",
+                label: "Primary",
+                content: <Button variant="primary">Primary</Button>,
+              },
+              {
+                value: "secondary",
+                label: "Secondary",
+                content: <Button variant="secondary">Secondary</Button>,
+              },
+            ]}
+            usageCodeLines={buttonUsageCode}
+            componentCodeLines={buttonComponentCode}
+          />
+          <ComponentShowcase
+            title="The Text Link"
+            previewTabs={[
+              {
+                value: "default",
+                label: "Default",
+                content: (
+                  <TextLink href="https://www.google.com">Text Link</TextLink>
+                ),
+              },
+            ]}
+            usageCodeLines={textLinkUsageCode}
+            componentCodeLines={textLinkComponentCode}
+          />
+          <ComponentShowcase
+            title="The Tabs"
+            previewTabs={[
+              {
+                value: "default",
+                label: "Default",
+                content: (
+                  <Tabs.Root defaultValue="overview" className="w-full max-w-xs">
+                    <Tabs.List>
+                      <Tabs.Tab value="overview">Overview</Tabs.Tab>
+                      <Tabs.Tab value="features">Features</Tabs.Tab>
+                      <Tabs.Tab value="reviews">Reviews</Tabs.Tab>
+                      <Tabs.Indicator />
+                    </Tabs.List>
+                    <Tabs.Panel value="overview" className="mt-3">
+                      <p className="text-xs text-grayscale-11">
+                        A quick look at the product and what it does.
+                      </p>
+                    </Tabs.Panel>
+                    <Tabs.Panel value="features" className="mt-3">
+                      <p className="text-xs text-grayscale-11">
+                        Key features that set this apart from the rest.
+                      </p>
+                    </Tabs.Panel>
+                    <Tabs.Panel value="reviews" className="mt-3">
+                      <p className="text-xs text-grayscale-11">
+                        What people are saying about it.
+                      </p>
+                    </Tabs.Panel>
+                  </Tabs.Root>
+                ),
+              },
+            ]}
+            usageCodeLines={tabsUsageCode}
+            componentCodeLines={tabsComponentCode}
+          />
+          <ComponentShowcase
+            title="The Switch"
+            previewTabs={[
+              {
+                value: "unchecked",
+                label: "Unchecked",
+                content: <Switch.Composed size={20} />,
+              },
+              {
+                value: "checked",
+                label: "Checked",
+                content: <Switch.Composed size={20} defaultChecked />,
+              },
+            ]}
+            usageCodeLines={switchUsageCode}
+            componentCodeLines={switchComponentCode}
+          />
         </div>
-      </main>
+      </Section>
     </div>
   );
 }
