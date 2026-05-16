@@ -2,14 +2,28 @@
 
 import { useEffect, useState } from "react";
 import { cn } from "@/helpers/classname-helper";
-import { THEME_COLOR_OPTIONS } from "@/helpers/theme-options";
+import {
+  THEME_COLOR_OPTIONS,
+  type ThemeColorAxis,
+  type ThemeColorValue,
+} from "@/helpers/theme-options";
+
+type GrayscaleColor = ThemeColorValue<"grayscale">;
+type AccentColor = ThemeColorValue<"accent">;
+
+type NaturalPairing = {
+  gray: GrayscaleColor;
+  label: string;
+  description: string;
+  accents: AccentColor[];
+};
 
 const naturalPairings = [
   {
     gray: "gray",
     label: "Gray",
     description: "Neutral pairing — works with any accent color.",
-    accents: [] as string[],
+    accents: [],
   },
   {
     gray: "mauve",
@@ -50,27 +64,34 @@ const naturalPairings = [
     description: "Pairs naturally with warm, earthy hues.",
     accents: ["bronze", "gold", "brown", "orange"],
   },
-];
+] satisfies NaturalPairing[];
 
-function getStoredValue(axis: "grayscale" | "accent"): string {
+function getStoredValue<TAxis extends ThemeColorAxis>(
+  axis: TAxis,
+): ThemeColorValue<TAxis> {
   const config = THEME_COLOR_OPTIONS[axis];
   const allowed = new Set<string>(config.values.map((o) => o.id));
 
   try {
     const stored = window.localStorage.getItem(config.storageKey);
-    if (stored !== null && allowed.has(stored)) return stored;
+    if (stored !== null && allowed.has(stored)) {
+      return stored as ThemeColorValue<TAxis>;
+    }
   } catch {
-    return config.defaultValue;
+    return config.defaultValue as ThemeColorValue<TAxis>;
   }
 
-  return config.defaultValue;
+  return config.defaultValue as ThemeColorValue<TAxis>;
 }
 
-function setDocumentColor(axis: string, value: string) {
+function setDocumentColor(axis: ThemeColorAxis, value: string) {
   document.documentElement.dataset[axis] = value;
 }
 
-function persist(axis: "grayscale" | "accent", value: string) {
+function persist<TAxis extends ThemeColorAxis>(
+  axis: TAxis,
+  value: ThemeColorValue<TAxis>,
+) {
   const config = THEME_COLOR_OPTIONS[axis];
   try {
     window.localStorage.setItem(config.storageKey, value);
@@ -80,10 +101,10 @@ function persist(axis: "grayscale" | "accent", value: string) {
 }
 
 export default function ColorPairings() {
-  const [selectedGray, setSelectedGray] = useState(
+  const [selectedGray, setSelectedGray] = useState<GrayscaleColor>(
     THEME_COLOR_OPTIONS.grayscale.defaultValue,
   );
-  const [selectedAccent, setSelectedAccent] = useState(
+  const [selectedAccent, setSelectedAccent] = useState<AccentColor>(
     THEME_COLOR_OPTIONS.accent.defaultValue,
   );
 
@@ -92,13 +113,13 @@ export default function ColorPairings() {
     setSelectedAccent(getStoredValue("accent"));
   }, []);
 
-  function selectGray(value: string) {
+  function selectGray(value: GrayscaleColor) {
     setSelectedGray(value);
     setDocumentColor("grayscale", value);
     persist("grayscale", value);
   }
 
-  function selectAccent(value: string) {
+  function selectAccent(value: AccentColor) {
     setSelectedAccent(value);
     setDocumentColor("accent", value);
     persist("accent", value);
@@ -132,7 +153,7 @@ export default function ColorPairings() {
             </span>
           </div>
           {pairing.accents.length > 0 ? (
-                  <div className="flex flex-row flex-wrap items-center gap-1.5">
+            <div className="flex flex-row flex-wrap items-center gap-1.5">
               {pairing.accents.map((accent) => (
                 <button
                   aria-label={`Use ${accent} accent`}
@@ -156,7 +177,7 @@ export default function ColorPairings() {
               ))}
             </div>
           ) : (
-                  <p className="text-xs text-grayscale-9 italic">
+            <p className="text-xs text-grayscale-9 italic">
               Works with all accent colors
             </p>
           )}

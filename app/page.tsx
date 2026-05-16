@@ -1,19 +1,28 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { CodeIcon, GithubLogoIcon } from "@phosphor-icons/react/dist/ssr";
-import Button from "@/components/public/Button";
-import TextLink from "@/components/public/TextLink";
-import { Tabs } from "@/components/public/Tabs";
-import { Switch } from "@/components/public/Switch";
-import Section from "@/components/Section";
-import ThemeColorSelector from "@/components/ThemeColorSelector";
+import Link from "next/link";
 import ComponentShowcase from "@/components/ComponentShowcase";
 import Logo from "@/components/Logo";
-import Link from "next/link";
+import Button from "@/components/public/Button";
+import { Switch } from "@/components/public/Switch";
+import { Tabs } from "@/components/public/Tabs";
+import TextLink from "@/components/public/TextLink";
+import Section from "@/components/Section";
+import ThemeColorSelector from "@/components/ThemeColorSelector";
 import { tokenize } from "@/helpers/syntax";
 
-async function getComponentCode(filePath: string) {
-  const source = await readFile(join(process.cwd(), filePath), "utf8");
+type PublicComponentFile =
+  | "Button.tsx"
+  | "TextLink.tsx"
+  | "Tabs.tsx"
+  | "Switch.tsx";
+
+async function getPublicComponentCode(fileName: PublicComponentFile) {
+  const source = await readFile(
+    join(process.cwd(), "components", "public", fileName),
+    "utf8",
+  );
   return tokenize(source);
 }
 
@@ -62,13 +71,13 @@ export default async function Home() {
     switchComponentCode,
     switchUsageCode,
   ] = await Promise.all([
-    getComponentCode("components/public/Button.tsx"),
+    getPublicComponentCode("Button.tsx"),
     tokenize(BUTTON_USAGE),
-    getComponentCode("components/public/TextLink.tsx"),
+    getPublicComponentCode("TextLink.tsx"),
     tokenize(TEXT_LINK_USAGE),
-    getComponentCode("components/public/Tabs.tsx"),
+    getPublicComponentCode("Tabs.tsx"),
     tokenize(TABS_USAGE),
-    getComponentCode("components/public/Switch.tsx"),
+    getPublicComponentCode("Switch.tsx"),
     tokenize(SWITCH_USAGE),
   ]);
 
@@ -181,7 +190,10 @@ export default async function Home() {
                 value: "default",
                 label: "Default",
                 content: (
-                  <Tabs.Root defaultValue="overview" className="w-full max-w-xs">
+                  <Tabs.Root
+                    defaultValue="overview"
+                    className="w-full max-w-xs"
+                  >
                     <Tabs.List>
                       <Tabs.Tab value="overview">Overview</Tabs.Tab>
                       <Tabs.Tab value="features">Features</Tabs.Tab>

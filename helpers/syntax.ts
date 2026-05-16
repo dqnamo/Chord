@@ -1,4 +1,4 @@
-import { codeToTokens } from "shiki";
+import { type BundledLanguage, codeToTokens } from "shiki";
 
 export type CodeLine = {
   id: string;
@@ -12,7 +12,7 @@ export type CodeLine = {
 
 export async function tokenize(
   source: string,
-  lang: string = "tsx",
+  lang: BundledLanguage = "tsx",
 ): Promise<CodeLine[]> {
   const [light, dark] = await Promise.all([
     codeToTokens(source, { lang, theme: "github-light" }),
