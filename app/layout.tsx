@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono, Pirata_One } from "next/font/google";
 import Script from "next/script";
 import { THEME_COLOR_OPTIONS } from "@/helpers/theme-options";
 import "../styles/globals.css";
+import MobileHeader from "@/components/MobileHeader";
 import Sidebar from "@/components/Sidebar";
 import { ThemeProvider } from "@/components/ThemeProvider";
 
@@ -62,8 +63,11 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-grayscale-1">
         <ThemeProvider>
+          <MobileHeader />
           <Sidebar />
-          <div className="root flex min-h-full flex-col">{children}</div>
+          <div className="root flex min-h-full flex-col pt-14 xl:pt-0">
+            {children}
+          </div>
         </ThemeProvider>
         <Script id="theme-colors-init" strategy="beforeInteractive">
           {themeColorInitScript}
