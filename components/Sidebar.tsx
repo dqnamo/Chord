@@ -1,8 +1,8 @@
 "use client";
 
-import { useTheme } from "next-themes";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTheme } from "next-themes";
 import { useSyncExternalStore } from "react";
 import { FloatingPanel } from "@/components/dqnamo/FloatingPanel";
 import { Switch } from "@/components/public/Switch";
@@ -46,24 +46,6 @@ function SidebarNavItems({ onNavigate }: { onNavigate?: () => void }) {
         )}
       >
         Components
-      </Link>
-      <Link
-        href="/"
-        onClick={onNavigate}
-        className={cn(
-          "flex flex-col px-2 py-1 font-mono font-semibold text-grayscale-9 text-xs uppercase transition-colors duration-200 hover:text-grayscale-10",
-          pathname.includes("#components")
-            ? "text-grayscale-11"
-            : "text-grayscale-8",
-        )}
-      >
-        Skills
-        <div className="flex flex-row items-center gap-1 text-grayscale-8 ">
-          {/* <HourglassIcon size={12} weight="bold" className="text-orange-9" /> */}
-          <span className="font-mono text-tiny tracking-normal">
-            Coming Soon
-          </span>
-        </div>
       </Link>
     </>
   );
