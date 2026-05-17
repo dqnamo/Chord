@@ -1,9 +1,9 @@
 "use client";
 
-import { Tabs } from "@/components/public/Tabs";
+import CodeBlock from "@/components/CodeBlock";
 import Button from "@/components/public/Button";
 import Card from "@/components/public/Card";
-import CodeBlock from "@/components/CodeBlock";
+import { Tabs } from "@/components/public/Tabs";
 import type { CodeLine } from "@/helpers/syntax";
 
 type PreviewTab = {
@@ -30,14 +30,17 @@ export default function ComponentShowcase({
       <div className="flex flex-col gap-px p-2">
         <h2 className="font-medium text-sm text-grayscale-10">{title}</h2>
       </div>
-      <Card className="mt-2 h-80 overflow-hidden">
-        <div className="grid min-h-0 flex-1 grid-cols-1 gap-1.5 lg:grid-cols-2">
-          <div className="small-shadow flex min-h-0 flex-col rounded-lg border border-grayscale-3 bg-grayscale-1">
+      <Card className="mt-2 h-80 overflow-hidden ">
+        <div className="grid min-h-0 flex-1 grid-cols-1 gap-1.5 lg:grid-cols-2 h-full">
+          <Card
+            layer={1}
+            className="small-shadow flex min-h-0 flex-col rounded-lg dark:bg-grayscale-2! dark:border-dashed dark:border-grayscale-3!"
+          >
             <Tabs.Root
               className="flex flex-1 flex-col"
               defaultValue={previewTabs[0]?.value}
             >
-              <div className="flex flex-row gap-2 p-2 border-b border-grayscale-2 justify-between items-center">
+              <div className="flex flex-row gap-2 p-2 border-b border-grayscale-3 dark:border-grayscale-3 dark:border-dashed justify-between items-center">
                 <Tabs.List>
                   {previewTabs.map((tab) => (
                     <Tabs.Tab key={tab.value} value={tab.value}>
@@ -61,13 +64,16 @@ export default function ComponentShowcase({
                 ))}
               </div>
             </Tabs.Root>
-          </div>
-          <div className="small-shadow flex min-h-0 flex-col overflow-hidden rounded-lg border border-grayscale-3 bg-grayscale-1">
+          </Card>
+          <Card
+            layer={1}
+            className="small-shadow flex min-h-0 flex-col overflow-hidden rounded-lg border border-grayscale-3 bg-grayscale-1"
+          >
             <Tabs.Root
               className="flex min-h-0 flex-1 flex-col"
               defaultValue="usage"
             >
-              <div className="flex flex-row gap-2 p-2 border-b border-grayscale-2 justify-between items-center">
+              <div className="flex flex-row gap-2 p-2 border-b border-grayscale-3 dark:border-grayscale-4 justify-between items-center">
                 <Tabs.List>
                   <Tabs.Tab value="usage">Usage</Tabs.Tab>
                   <Tabs.Tab value="component">Component</Tabs.Tab>
@@ -90,7 +96,7 @@ export default function ComponentShowcase({
                 <CodeBlock lines={componentCodeLines} />
               </Tabs.Panel>
             </Tabs.Root>
-          </div>
+          </Card>
         </div>
       </Card>
     </div>

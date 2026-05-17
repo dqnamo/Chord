@@ -4,6 +4,7 @@ import { CodeIcon, GithubLogoIcon } from "@phosphor-icons/react/dist/ssr";
 import ComponentShowcase from "@/components/ComponentShowcase";
 import Logo from "@/components/Logo";
 import Button from "@/components/public/Button";
+import Card from "@/components/public/Card";
 import { Switch } from "@/components/public/Switch";
 import { Tabs } from "@/components/public/Tabs";
 import TextLink from "@/components/public/TextLink";
@@ -13,6 +14,7 @@ import { tokenize } from "@/helpers/syntax";
 
 type PublicComponentFile =
   | "Button.tsx"
+  | "Card.tsx"
   | "TextLink.tsx"
   | "Tabs.tsx"
   | "Switch.tsx";
@@ -35,23 +37,42 @@ const BUTTON_USAGE = `import Button from "@/components/public/Button";
   Secondary
 </Button>`;
 
+const CARD_USAGE = `import Card from "@/components/public/Card";
+
+<Card className="max-w-xs">
+  <Card layer={1} className="p-4">
+    <p>Chord components</p>
+  </Card>
+</Card>
+
+<Card layer={1} hoverable className="max-w-xs p-4">
+  <p>Interactive card</p>
+</Card>`;
+
 const TEXT_LINK_USAGE = `import TextLink from "@/components/public/TextLink";
 
 <TextLink href="/about">
   Learn more
 </TextLink>`;
 
-const TABS_USAGE = `import { Tabs } from "@/components/public/Tabs";
+const TABS_USAGE = `import Card from "@/components/public/Card";
+import { Tabs } from "@/components/public/Tabs";
 
-<Tabs.Root defaultValue="one">
-  <Tabs.List>
-    <Tabs.Tab value="one">Tab One</Tabs.Tab>
-    <Tabs.Tab value="two">Tab Two</Tabs.Tab>
-    <Tabs.Indicator />
-  </Tabs.List>
-  <Tabs.Panel value="one">Content one</Tabs.Panel>
-  <Tabs.Panel value="two">Content two</Tabs.Panel>
-</Tabs.Root>`;
+<Card layer={1} className="w-80 max-w-full gap-0 overflow-hidden">
+  <Tabs.Root defaultValue="one">
+    <div className="border-b border-grayscale-3 p-2">
+      <Tabs.List>
+        <Tabs.Tab value="one">Tab One</Tabs.Tab>
+        <Tabs.Tab value="two">Tab Two</Tabs.Tab>
+        <Tabs.Indicator />
+      </Tabs.List>
+    </div>
+    <div className="p-3">
+      <Tabs.Panel value="one">Content one</Tabs.Panel>
+      <Tabs.Panel value="two">Content two</Tabs.Panel>
+    </div>
+  </Tabs.Root>
+</Card>`;
 
 const SWITCH_USAGE = `import { Switch } from "@/components/public/Switch";
 
@@ -63,6 +84,8 @@ export default async function Home() {
   const [
     buttonComponentCode,
     buttonUsageCode,
+    cardComponentCode,
+    cardUsageCode,
     textLinkComponentCode,
     textLinkUsageCode,
     tabsComponentCode,
@@ -72,6 +95,8 @@ export default async function Home() {
   ] = await Promise.all([
     getPublicComponentCode("Button.tsx"),
     tokenize(BUTTON_USAGE),
+    getPublicComponentCode("Card.tsx"),
+    tokenize(CARD_USAGE),
     getPublicComponentCode("TextLink.tsx"),
     tokenize(TEXT_LINK_USAGE),
     getPublicComponentCode("Tabs.tsx"),
@@ -160,6 +185,43 @@ export default async function Home() {
             componentCodeLines={buttonComponentCode}
           />
           <ComponentShowcase
+            title="The Card"
+            previewTabs={[
+              {
+                value: "base",
+                label: "Base",
+                content: (
+                  <Card className="max-w-xs">
+                    <Card layer={1} className="p-4">
+                      <p className="font-medium text-sm text-grayscale-12">
+                        Chord components
+                      </p>
+                      <p className="text-xs text-grayscale-10">
+                        A layered surface for grouped interface content.
+                      </p>
+                    </Card>
+                  </Card>
+                ),
+              },
+              {
+                value: "hoverable",
+                label: "Hoverable",
+                content: (
+                  <Card layer={1} hoverable className="max-w-xs p-4">
+                    <p className="font-medium text-sm text-grayscale-12">
+                      Interactive card
+                    </p>
+                    <p className="text-xs text-grayscale-10">
+                      Hover to preview the active surface state.
+                    </p>
+                  </Card>
+                ),
+              },
+            ]}
+            usageCodeLines={cardUsageCode}
+            componentCodeLines={cardComponentCode}
+          />
+          <ComponentShowcase
             title="The Text Link"
             previewTabs={[
               {
@@ -180,32 +242,38 @@ export default async function Home() {
                 value: "default",
                 label: "Default",
                 content: (
-                  <Tabs.Root
-                    defaultValue="overview"
-                    className="w-full max-w-xs"
+                  <Card
+                    layer={1}
+                    className="w-80 max-w-full cursor-default gap-0 overflow-hidden"
                   >
-                    <Tabs.List>
-                      <Tabs.Tab value="overview">Overview</Tabs.Tab>
-                      <Tabs.Tab value="features">Features</Tabs.Tab>
-                      <Tabs.Tab value="reviews">Reviews</Tabs.Tab>
-                      <Tabs.Indicator />
-                    </Tabs.List>
-                    <Tabs.Panel value="overview" className="mt-3">
-                      <p className="text-xs text-grayscale-11">
-                        A quick look at the product and what it does.
-                      </p>
-                    </Tabs.Panel>
-                    <Tabs.Panel value="features" className="mt-3">
-                      <p className="text-xs text-grayscale-11">
-                        Key features that set this apart from the rest.
-                      </p>
-                    </Tabs.Panel>
-                    <Tabs.Panel value="reviews" className="mt-3">
-                      <p className="text-xs text-grayscale-11">
-                        What people are saying about it.
-                      </p>
-                    </Tabs.Panel>
-                  </Tabs.Root>
+                    <Tabs.Root defaultValue="overview">
+                      <div className="border-b border-grayscale-3 p-2 dark:border-grayscale-5">
+                        <Tabs.List>
+                          <Tabs.Tab value="overview">Overview</Tabs.Tab>
+                          <Tabs.Tab value="features">Features</Tabs.Tab>
+                          <Tabs.Tab value="reviews">Reviews</Tabs.Tab>
+                          <Tabs.Indicator />
+                        </Tabs.List>
+                      </div>
+                      <div className="min-h-20 p-3">
+                        <Tabs.Panel value="overview">
+                          <p className="text-xs text-grayscale-11">
+                            A quick look at the product and what it does.
+                          </p>
+                        </Tabs.Panel>
+                        <Tabs.Panel value="features">
+                          <p className="text-xs text-grayscale-11">
+                            Key features that set this apart from the rest.
+                          </p>
+                        </Tabs.Panel>
+                        <Tabs.Panel value="reviews">
+                          <p className="text-xs text-grayscale-11">
+                            What people are saying about it.
+                          </p>
+                        </Tabs.Panel>
+                      </div>
+                    </Tabs.Root>
+                  </Card>
                 ),
               },
             ]}
