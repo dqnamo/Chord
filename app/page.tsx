@@ -84,7 +84,7 @@ export default async function Home() {
     <div className="flex flex-col w-full divide-y divide-grayscale-3 dark:divide-grayscale-2">
       <div className="relative flex flex-col max-w-4xl mx-auto w-full border-x border-grayscale-3 dark:border-grayscale-2 p-4 md:p-8 lg:p-16">
         <div className="flex flex-col gap-px p-2">
-          <Logo />
+          <Logo className="w-10" iconSize={24} />
           <div className="flex flex-row items-center gap-1 mt-3">
             <h1 className="font-bold text-2xl text-grayscale-12 font-mono uppercase">
               Chord
