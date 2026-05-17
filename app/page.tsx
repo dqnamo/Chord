@@ -89,16 +89,6 @@ export default async function Home() {
             <h1 className="font-bold text-2xl text-grayscale-12 font-mono uppercase">
               Chord
             </h1>
-            <p className="text-grayscale-10 text-sm max-w-md text-balance mt-2">
-              by
-            </p>
-            <TextLink
-              href="https://dqnamo.com"
-              target="_blank"
-              className="text-sm mt-2"
-            >
-              dqnamo
-            </TextLink>
           </div>
           <p className="text-grayscale-11 text-sm max-w-md text-balance">
             An opinionated design language and UI Library for building beautiful
