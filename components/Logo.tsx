@@ -1,25 +1,16 @@
-import { MusicNotesSimpleIcon } from "@phosphor-icons/react/dist/ssr";
-import { cn } from "@/helpers/classname-helper";
-
 type LogoProps = {
-  className?: string;
-  iconSize?: number;
+  textMark?: boolean;
 };
 
-export default function Logo({ className, iconSize = 20 }: LogoProps) {
+export default function Logo({ textMark = false }: LogoProps) {
   return (
-    <div
-      className={cn(
-        "flex aspect-square w-8 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-grayscale-3 bg-grayscale-1 dark:border-grayscale-4 dark:bg-grayscale-3",
-        className,
-      )}
-    >
-      <MusicNotesSimpleIcon
-        aria-hidden="true"
-        className="text-accent-9"
-        size={iconSize}
-        weight="fill"
-      />
+    <div className="flex flex-row items-center gap-1.5">
+      <div className="flex flex-row gap-0.5">
+        <div className="h-5 w-1.5 bg-orange-9"></div>
+        <div className="h-5 w-1.5 bg-cyan-9"></div>
+        <div className="h-5 w-1.5 bg-sky-9"></div>
+      </div>
+      {textMark ? <span className="font-mono uppercase font-bold text-2xl text-grayscale-12 leading-none">Chord</span> : null}
     </div>
-  );
+  )
 }

@@ -1,9 +1,9 @@
-import Button from "@/components/public/Button";
-import TextLink from "@/components/public/TextLink";
-import { Tabs } from "@/components/public/Tabs";
-import ThemeColorSelector from "@/components/ThemeColorSelector";
-import ColorPairings from "@/components/ColorPairings";
 import CodeBlock from "@/components/CodeBlock";
+import ColorPairings from "@/components/ColorPairings";
+import Button from "@/components/public/Button";
+import { Tabs } from "@/components/public/Tabs";
+import TextLink from "@/components/public/TextLink";
+import ThemeColorSelector from "@/components/ThemeColorSelector";
 import { tokenize } from "@/helpers/syntax";
 
 const globalsCSS = `@import "tailwindcss";
@@ -966,42 +966,42 @@ export default async function SetupPage() {
         </div>
 
         <div className="flex flex-col gap-2 mt-4 bg-grayscale-2 rounded-xl p-1.5 border border-grayscale-3">
-          <Tabs.Root className="small-shadow flex flex-col bg-grayscale-1 rounded-lg border border-grayscale-3">
+          <Tabs.Base.Root className="small-shadow flex flex-col bg-grayscale-1 rounded-lg border border-grayscale-3">
             <div className="flex flex-row items-center justify-between p-2 border-b border-grayscale-2">
-              <Tabs.List>
-                <Tabs.Tab
+              <Tabs.Base.List>
+                <Tabs.Base.Tab
                   value="globals.css"
                   className="text-grayscale-10 text-xs"
                 >
                   globals.css
-                </Tabs.Tab>
-                <Tabs.Tab
+                </Tabs.Base.Tab>
+                <Tabs.Base.Tab
                   value="theme.css"
                   className="text-grayscale-10 text-xs"
                 >
                   theme.css
-                </Tabs.Tab>
-                <Tabs.Tab
+                </Tabs.Base.Tab>
+                <Tabs.Base.Tab
                   value="colors.css"
                   className="text-grayscale-10 text-xs"
                 >
                   colors.css
-                </Tabs.Tab>
+                </Tabs.Base.Tab>
 
-                <Tabs.Indicator />
-              </Tabs.List>
+                <Tabs.Base.Indicator />
+              </Tabs.Base.List>
               <Button variant="secondary" className="text-xs">
                 Copy
               </Button>
             </div>
             <div className="flex flex-col max-h-96 overflow-auto">
               {tokenizedCSS.map(([filename, lines]) => (
-                <Tabs.Panel key={filename} value={filename}>
+                <Tabs.Base.Panel key={filename} value={filename}>
                   <CodeBlock lines={lines} />
-                </Tabs.Panel>
+                </Tabs.Base.Panel>
               ))}
             </div>
-          </Tabs.Root>
+          </Tabs.Base.Root>
         </div>
 
         <div className="flex flex-col p-2">

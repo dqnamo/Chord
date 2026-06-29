@@ -1,10 +1,16 @@
-import { cn } from "@/helpers/classname-helper";
 import { Tabs as BaseTabs } from "@base-ui/react/tabs";
+import { cn } from "@/helpers/classname-helper";
 
 type TabItem = {
   value: string;
   label: React.ReactNode;
   content: React.ReactNode;
+};
+
+type TabsProps = React.ComponentProps<typeof BaseTabs.Root> & {
+  items: TabItem[];
+  listClassName?: string;
+  panelClassName?: string;
 };
 
 const Root = ({
@@ -65,10 +71,19 @@ const Panel = ({
   <BaseTabs.Panel className={cn(className)} {...props} />
 );
 
-export const Tabs = {
-  Component: ({ items }: { items: TabItem[] }) => (
-    <Root>
-      <List>
+function TabsComponent({
+  items,
+  listClassName,
+  panelClassName,
+  defaultValue,
+  ...props
+}: TabsProps) {
+  return (
+    <Root
+      defaultValue={defaultValue === undefined ? items[0]?.value : defaultValue}
+      {...props}
+    >
+      <List className={listClassName}>
         {items.map((item) => (
           <Tab key={item.value} value={item.value}>
             {item.label}
@@ -77,15 +92,25 @@ export const Tabs = {
         <Indicator />
       </List>
       {items.map((item) => (
-        <Panel key={item.value} value={item.value}>
+        <Panel className={panelClassName} key={item.value} value={item.value}>
           {item.content}
         </Panel>
       ))}
     </Root>
-  ),
+  );
+}
+
+export const Tabs = Object.assign(TabsComponent, {
   Root,
   List,
   Tab,
   Indicator,
   Panel,
-};
+  Base: {
+    Root,
+    List,
+    Tab,
+    Indicator,
+    Panel,
+  },
+});

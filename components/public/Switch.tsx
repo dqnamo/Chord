@@ -1,6 +1,10 @@
 import { Switch as BaseSwitch } from "@base-ui/react/switch";
 import { cn } from "@/helpers/classname-helper";
 
+type SwitchProps = { size?: number } & React.ComponentProps<
+  typeof BaseSwitch.Root
+>;
+
 const Root = ({
   className,
   ...props
@@ -27,26 +31,25 @@ const Thumb = ({
   />
 );
 
-export const Switch = {
-  Composed: ({
-    size = 16,
-    ...props
-  }: { size?: number } & React.ComponentProps<typeof BaseSwitch.Root>) => {
-    const thumbSize = size;
-    const rootWidth = size * 1.75;
-    const difference = rootWidth - thumbSize;
+function SwitchComponent({ size = 16, style, ...props }: SwitchProps) {
+  const thumbSize = size;
+  const rootWidth = size * 1.75;
+  const difference = rootWidth - thumbSize;
 
-    return (
-      <Root {...props} style={{ width: rootWidth, height: thumbSize }}>
-        <Thumb
-          style={
-            { "--switch-offset": `${difference}px` } as React.CSSProperties
-          }
-          className="data-[checked]:translate-x-[var(--switch-offset)]"
-        />
-      </Root>
-    );
+  return (
+    <Root {...props} style={{ width: rootWidth, height: thumbSize, ...style }}>
+      <Thumb
+        style={{ "--switch-offset": `${difference}px` } as React.CSSProperties}
+        className="data-[checked]:translate-x-[var(--switch-offset)]"
+      />
+    </Root>
+  );
+}
+
+export const Switch = Object.assign(SwitchComponent, {
+  Composed: SwitchComponent,
+  Base: {
+    Root,
+    Thumb,
   },
-  Root,
-  Thumb,
-};
+});

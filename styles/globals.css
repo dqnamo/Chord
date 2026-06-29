@@ -1,6 +1,108 @@
 @import "tailwindcss";
 @import "./theme.css";
 
+
+@theme inline {
+
+  --font-sans: var(--font-inter);
+  --font-pirata: var(--font-pirata-one);
+  --font-mono: var(--font-jetbrains-mono);
+  --font-arvo: var(--font-arvo);
+
+
+
+  --color-grayscale-1: var(--gray-1);
+  --color-grayscale-2: var(--gray-2);
+  --color-grayscale-3: var(--gray-3);
+  --color-grayscale-4: var(--gray-4);
+  --color-grayscale-5: var(--gray-5);
+  --color-grayscale-6: var(--gray-6);
+  --color-grayscale-7: var(--gray-7);
+  --color-grayscale-8: var(--gray-8);
+  --color-grayscale-9: var(--gray-9);
+  --color-grayscale-10: var(--gray-10);
+  --color-grayscale-11: var(--gray-11);
+  --color-grayscale-12: var(--gray-12);
+
+  --color-gray-1: var(--gray-1);
+  --color-gray-2: var(--gray-2);
+  --color-gray-3: var(--gray-3);
+  --color-gray-4: var(--gray-4);
+  --color-gray-5: var(--gray-5);
+  --color-gray-6: var(--gray-6);
+  --color-gray-7: var(--gray-7);
+  --color-gray-8: var(--gray-8);
+  --color-gray-9: var(--gray-9);
+  --color-gray-10: var(--gray-10);
+  --color-gray-11: var(--gray-11);
+  --color-gray-12: var(--gray-12);
+
+  --color-cyan-1: var(--cyan-1);
+  --color-cyan-2: var(--cyan-2);
+  --color-cyan-3: var(--cyan-3);
+  --color-cyan-4: var(--cyan-4);
+  --color-cyan-5: var(--cyan-5);
+  --color-cyan-6: var(--cyan-6);
+  --color-cyan-7: var(--cyan-7);
+  --color-cyan-8: var(--cyan-8);
+  --color-cyan-9: var(--cyan-9);
+  --color-cyan-10: var(--cyan-10);
+  --color-cyan-11: var(--cyan-11);
+  --color-cyan-12: var(--cyan-12);
+
+  --color-teal-1: var(--teal-1);
+  --color-teal-2: var(--teal-2);
+  --color-teal-3: var(--teal-3);
+  --color-teal-4: var(--teal-4);
+  --color-teal-5: var(--teal-5);
+  --color-teal-6: var(--teal-6);
+  --color-teal-7: var(--teal-7);
+  --color-teal-8: var(--teal-8);
+  --color-teal-9: var(--teal-9);
+  --color-teal-10: var(--teal-10);
+  --color-teal-11: var(--teal-11);
+  --color-teal-12: var(--teal-12);
+
+  --color-jade-1: var(--jade-1);
+  --color-jade-2: var(--jade-2);
+  --color-jade-3: var(--jade-3);
+  --color-jade-4: var(--jade-4);
+  --color-jade-5: var(--jade-5);
+  --color-jade-6: var(--jade-6);
+  --color-jade-7: var(--jade-7);
+  --color-jade-8: var(--jade-8);
+  --color-jade-9: var(--jade-9);
+  --color-jade-10: var(--jade-10);
+  --color-jade-11: var(--jade-11);
+  --color-jade-12: var(--jade-12);
+
+  --color-orange-1: var(--orange-1);
+  --color-orange-2: var(--orange-2);
+  --color-orange-3: var(--orange-3);
+  --color-orange-4: var(--orange-4);
+  --color-orange-5: var(--orange-5);
+  --color-orange-6: var(--orange-6);
+  --color-orange-7: var(--orange-7);
+  --color-orange-8: var(--orange-8);
+  --color-orange-9: var(--orange-9);
+  --color-orange-10: var(--orange-10);
+  --color-orange-11: var(--orange-11);
+  --color-orange-12: var(--orange-12);
+
+  --color-sky-1: var(--sky-1);
+  --color-sky-2: var(--sky-2);
+  --color-sky-3: var(--sky-3);
+  --color-sky-4: var(--sky-4);
+  --color-sky-5: var(--sky-5);
+  --color-sky-6: var(--sky-6);
+  --color-sky-7: var(--sky-7);
+  --color-sky-8: var(--sky-8);
+  --color-sky-9: var(--sky-9);
+  --color-sky-10: var(--sky-10);
+  --color-sky-11: var(--sky-11);
+  --color-sky-12: var(--sky-12);
+}
+
 body {
   position: relative;
 }
@@ -15,6 +117,18 @@ body {
     0 1px 2px rgba(0, 0, 0, 0.03);
 }
 
+.medium-shadow {
+  box-shadow:
+    0 4px 16px 0 rgba(0, 0, 0, 0.06),
+    0 1.5px 6px 0 rgba(0, 0, 0, 0.04);
+}
+
+
+.small-shadow {
+  box-shadow:
+    2px 2px 4px rgba(0, 0, 0, 0.02),
+    0 1px 2px rgba(0, 0, 0, 0.03);
+}
 .medium-shadow {
   box-shadow:
     0 4px 16px 0 rgba(0, 0, 0, 0.06),

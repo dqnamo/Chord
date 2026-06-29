@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Pirata_One } from "next/font/google";
-import Script from "next/script";
-import { THEME_COLOR_OPTIONS } from "@/helpers/theme-options";
-import "../styles/globals.css";
+import { Arvo, Inter, JetBrains_Mono, Pirata_One } from "next/font/google";
 import MobileHeader from "@/components/MobileHeader";
+import { ScrollArea } from "@/components/public/ScrollArea";
 import Sidebar from "@/components/Sidebar";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import "../styles/globals.css";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -25,28 +24,16 @@ const pirataOne = Pirata_One({
   weight: ["400"],
 });
 
+const arvo = Arvo({
+  variable: "--font-arvo",
+  subsets: ["latin"],
+  weight: ["400", "700"],
+});
+
 export const metadata: Metadata = {
   title: "Chord",
   description: "Chord - A component library by dqnamo",
 };
-
-const themeColorInitScript = `
-(() => {
-  const axes = ${JSON.stringify(THEME_COLOR_OPTIONS)};
-
-  for (const [axis, config] of Object.entries(axes)) {
-    try {
-      const stored = window.localStorage.getItem(config.storageKey);
-      const allowed = new Set(config.values.map((option) => option.id));
-      document.documentElement.dataset[axis] = allowed.has(stored)
-        ? stored
-        : config.defaultValue;
-    } catch {
-      document.documentElement.dataset[axis] = config.defaultValue;
-    }
-  }
-})();
-`;
 
 export default function RootLayout({
   children,
@@ -54,24 +41,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      data-accent="blue"
-      data-grayscale="gray"
-      lang="en"
-      className={`${inter.variable} ${jetbrainsMono.variable} ${pirataOne.variable} h-full antialiased`}
-      suppressHydrationWarning
-    >
-      <body className="min-h-full flex flex-col bg-grayscale-1">
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${inter.variable} ${jetbrainsMono.variable} ${pirataOne.variable} ${arvo.variable} h-dvh w-full overflow-hidden bg-grayscale-1 antialiased`}
+      >
         <ThemeProvider>
           <MobileHeader />
-          <Sidebar />
-          <div className="root flex min-h-full flex-col pt-14 md:pt-0">
-            {children}
+          <div className="flex h-dvh w-full pt-14 md:pt-0">
+            <Sidebar />
+            <main className="min-w-0 flex-1">
+              <ScrollArea.Root className="group/main-scroll h-full min-h-0 w-full">
+                <ScrollArea.Viewport className="h-full w-full">
+                  <ScrollArea.Content>{children}</ScrollArea.Content>
+                </ScrollArea.Viewport>
+                <ScrollArea.Scrollbar className="z-20 flex w-2 justify-center bg-transparent px-0.5 py-1 opacity-0 transition-opacity duration-150 group-hover/main-scroll:opacity-100 data-[hovering]:opacity-100 data-[scrolling]:opacity-100">
+                  <ScrollArea.Thumb className="w-1 rounded-full bg-grayscale-5 transition-colors hover:bg-grayscale-7 dark:bg-grayscale-6 dark:hover:bg-grayscale-8" />
+                </ScrollArea.Scrollbar>
+              </ScrollArea.Root>
+            </main>
           </div>
         </ThemeProvider>
-        <Script id="theme-colors-init" strategy="beforeInteractive">
-          {themeColorInitScript}
-        </Script>
       </body>
     </html>
   );

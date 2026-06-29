@@ -1,109 +1,81 @@
-"use client";
-
+import { MoonStarsIcon } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useTheme } from "next-themes";
-import { useSyncExternalStore } from "react";
-import { FloatingPanel } from "@/components/dqnamo/FloatingPanel";
-import { Switch } from "@/components/public/Switch";
-import { cn } from "@/helpers/classname-helper";
+import Logo from "@/components/Logo";
+import ScrollFadeList from "@/components/ScrollFadeList";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { COMPONENT_INDEX } from "@/helpers/component-index";
+import packageJson from "@/package.json";
 
-const emptySubscribe = () => () => {};
+const navGroups = [
+  {
+    title: "Getting Started",
+    items: [
+      { href: "/", label: "Home" },
+      { href: "/setup", label: "Setup" },
+    ],
+  },
+  {
+    title: "Components",
+    items: COMPONENT_INDEX.map((item) => ({
+      href: `/components/${item.id}`,
+      label: item.title.replace(/^The\s+/, ""),
+    })),
+  },
+];
 
-function SidebarNavItems({ onNavigate }: { onNavigate?: () => void }) {
-  const pathname = usePathname();
-
+export function SidebarNavContent({ onNavigate }: { onNavigate?: () => void }) {
   return (
-    <>
-      <Link
-        href="/"
-        onClick={onNavigate}
-        className={cn(
-          "px-2 py-1 font-mono font-semibold text-xs uppercase",
-          pathname === "/" ? "text-grayscale-11" : "text-grayscale-9",
-        )}
-      >
-        Home
-      </Link>
-      <Link
-        href="/setup"
-        onClick={onNavigate}
-        className={cn(
-          "px-2 py-1 font-mono font-semibold text-grayscale-9 text-xs uppercase transition-colors duration-200 hover:text-grayscale-11",
-          pathname === "/setup" ? "text-grayscale-11" : "text-grayscale-9",
-        )}
-      >
-        Setup
-      </Link>
-      <Link
-        href="/#components"
-        onClick={onNavigate}
-        className={cn(
-          "flex flex-row items-center justify-between gap-2 px-2 py-1 font-mono font-semibold text-grayscale-9 text-xs uppercase transition-colors duration-200 hover:text-grayscale-10",
-          pathname.includes("#components")
-            ? "text-grayscale-11"
-            : "text-grayscale-9",
-        )}
-      >
-        Components
-      </Link>
-    </>
-  );
-}
-
-function SidebarNavContent({ onNavigate }: { onNavigate?: () => void }) {
-  const { resolvedTheme, setTheme } = useTheme();
-  const mounted = useSyncExternalStore(
-    emptySubscribe,
-    () => true,
-    () => false,
-  );
-
-  return (
-    <>
-      <SidebarNavItems onNavigate={onNavigate} />
-
-      <div className="flex flex-col mt-8 px-2">
-        <div className="flex flex-row items-center gap-2">
-          <span className="text-xs font-mono text-grayscale-9 font-medium uppercase">
-            Dark Mode
-          </span>
-          {mounted && (
-            <Switch.Composed
-              size={16}
-              checked={resolvedTheme === "dark"}
-              onCheckedChange={(checked) =>
-                setTheme(checked ? "dark" : "light")
-              }
-            />
-          )}
-        </div>
-      </div>
-
-      <div className="flex flex-col mt-auto px-2">
-        <p className="text-xs text-grayscale-9">
-          Made with 💛 in{" "}
-          <span className="font-medium text-grayscale-9">London</span> by{" "}
-        </p>
-        <a
-          href="https://dqnamo.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-max font-medium text-lg text-grayscale-9 hover:text-grayscale-11 transition-colors duration-200 font-pirata"
-        >
-          dqnamo
-        </a>
-      </div>
-    </>
+    <ScrollFadeList contentClassName="px-3 pb-3">
+      <nav className="flex flex-col gap-5">
+        {navGroups.map((group) => (
+          <div className="flex flex-col gap-1" key={group.title}>
+            <h2 className="px-2 font-mono font-medium text-grayscale-9 text-xs uppercase">
+              {group.title}
+            </h2>
+            <div className="flex flex-col gap-px">
+              {group.items.map((item) => (
+                <Link
+                  className="rounded-md px-2 py-1.5 text-grayscale-11 text-sm transition-colors hover:bg-grayscale-2 hover:text-grayscale-12 dark:hover:bg-grayscale-3"
+                  href={item.href}
+                  key={item.href}
+                  onClick={onNavigate}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+        ))}
+      </nav>
+    </ScrollFadeList>
   );
 }
 
 export default function Sidebar() {
   return (
-    <FloatingPanel>
-      <SidebarNavItems />
-    </FloatingPanel>
+    <aside className="hidden h-full min-h-0 w-64 shrink-0 flex-col border-grayscale-3 border-r md:flex">
+      <div className="p-5">
+        <Link href="/" aria-label="Chord home" className="w-max">
+          <Logo />
+        </Link>
+      </div>
+      <div className="flex min-h-0 flex-1 flex-col">
+        <SidebarNavContent />
+      </div>
+      <div className="flex items-center justify-between border-grayscale-3 border-t p-3 dark:border-grayscale-2">
+        <p className="font-mono font-medium text-grayscale-9 text-xs">
+          V{packageJson.version}
+        </p>
+        <div className="flex items-center gap-2">
+          <MoonStarsIcon
+            aria-hidden="true"
+            className="text-grayscale-10"
+            size={17}
+            weight="fill"
+          />
+          <ThemeToggle />
+        </div>
+      </div>
+    </aside>
   );
 }
-
-export { SidebarNavContent, SidebarNavItems };
