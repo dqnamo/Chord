@@ -3,8 +3,10 @@ import { Inter, JetBrains_Mono, Pirata_One } from "next/font/google";
 import Script from "next/script";
 import { THEME_COLOR_OPTIONS } from "@/helpers/theme-options";
 import "../styles/globals.css";
+import ComponentNav from "@/components/ComponentNav";
 import MobileHeader from "@/components/MobileHeader";
 import Sidebar from "@/components/Sidebar";
+import SuppressPasswordManagers from "@/components/SuppressPasswordManagers";
 import { ThemeProvider } from "@/components/ThemeProvider";
 
 const inter = Inter({
@@ -63,8 +65,10 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-grayscale-1">
         <ThemeProvider>
+          <SuppressPasswordManagers />
           <MobileHeader />
           <Sidebar />
+          <ComponentNav />
           <div className="root flex min-h-full flex-col pt-14 md:pt-0">
             {children}
           </div>

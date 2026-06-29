@@ -1,0 +1,65 @@
+import { Accordion as BaseAccordion } from "@base-ui/react/accordion";
+import { CaretDown } from "@phosphor-icons/react/dist/ssr";
+import { cn } from "@/helpers/classname-helper";
+
+const Root = ({
+  className,
+  ...props
+}: React.ComponentProps<typeof BaseAccordion.Root>) => (
+  <BaseAccordion.Root className={cn("w-full", className)} {...props} />
+);
+
+const Item = ({
+  className,
+  ...props
+}: React.ComponentProps<typeof BaseAccordion.Item>) => (
+  <BaseAccordion.Item
+    className={cn(
+      "border-b border-grayscale-3 dark:border-grayscale-4",
+      className,
+    )}
+    {...props}
+  />
+);
+
+const Header = ({
+  className,
+  ...props
+}: React.ComponentProps<typeof BaseAccordion.Header>) => (
+  <BaseAccordion.Header className={cn(className)} {...props} />
+);
+
+const Trigger = ({
+  className,
+  children,
+  ...props
+}: React.ComponentProps<typeof BaseAccordion.Trigger>) => (
+  <BaseAccordion.Trigger
+    className={cn(
+      "group flex w-full cursor-pointer items-center justify-between py-2 text-sm text-grayscale-12",
+      className,
+    )}
+    {...props}
+  >
+    {children}
+    <CaretDown
+      weight="bold"
+      className="size-3.5 text-grayscale-10 transition-transform group-data-[panel-open]:rotate-180"
+    />
+  </BaseAccordion.Trigger>
+);
+
+const Panel = ({
+  className,
+  ...props
+}: React.ComponentProps<typeof BaseAccordion.Panel>) => (
+  <BaseAccordion.Panel
+    className={cn(
+      "h-[var(--accordion-panel-height)] overflow-hidden pb-2 text-sm text-grayscale-10 transition-[height] duration-150 ease-out data-[ending-style]:h-0 data-[starting-style]:h-0",
+      className,
+    )}
+    {...props}
+  />
+);
+
+export const Accordion = { Root, Item, Header, Trigger, Panel };

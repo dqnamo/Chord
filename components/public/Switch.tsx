@@ -7,7 +7,7 @@ const Root = ({
 }: React.ComponentProps<typeof BaseSwitch.Root>) => (
   <BaseSwitch.Root
     className={cn(
-      "relative flex h-4 w-7 rounded-full border border-grayscale-6 data-[checked]:border-accent-10 bg-grayscale-5 p-px transition-[background-color,opacity] duration-150 data-[checked]:bg-accent-9 dark:border-grayscale-5 dark:bg-grayscale-4 dark:data-[checked]:bg-accent-9",
+      "relative flex h-4 w-7 cursor-pointer rounded-full border border-grayscale-6 data-[checked]:border-accent-10 bg-grayscale-5 p-px transition-[background-color,opacity] duration-150 data-[checked]:bg-accent-9 dark:border-grayscale-5 dark:bg-grayscale-4 dark:data-[checked]:bg-accent-9",
       className,
     )}
     {...props}

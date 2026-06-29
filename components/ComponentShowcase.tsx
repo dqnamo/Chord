@@ -13,6 +13,7 @@ type PreviewTab = {
 };
 
 export type ComponentShowcaseProps = {
+  id?: string;
   title: string;
   previewTabs: PreviewTab[];
   usageCodeLines: CodeLine[];
@@ -20,13 +21,14 @@ export type ComponentShowcaseProps = {
 };
 
 export default function ComponentShowcase({
+  id,
   title,
   previewTabs,
   usageCodeLines,
   componentCodeLines,
 }: ComponentShowcaseProps) {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col scroll-mt-8" id={id}>
       <div className="flex flex-col gap-px p-2">
         <h2 className="font-medium text-sm text-grayscale-10">{title}</h2>
       </div>
