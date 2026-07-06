@@ -13,11 +13,11 @@ const Trigger = ({
 }: React.ComponentProps<typeof BaseSelect.Trigger>) => (
   <BaseSelect.Trigger
     className={cn(
-      "flex h-7 min-w-40 cursor-pointer items-center justify-between gap-2 rounded-lg border border-b-2 border-grayscale-4 bg-grayscale-1 px-2 text-sm text-grayscale-12 transition-colors outline-none",
+      "flex h-7 min-w-40 cursor-pointer items-center justify-between gap-2 rounded-lg border border-grayscale-4 bg-grayscale-1 px-2 text-sm text-grayscale-12 transition-colors outline-none",
       "hover:border-grayscale-5",
       "focus-visible:border-accent-8 focus-visible:ring-2 focus-visible:ring-accent-4",
       "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
-      "dark:border-grayscale-4 dark:bg-grayscale-2",
+      "dark:bg-grayscale-2",
       className,
     )}
     {...props}

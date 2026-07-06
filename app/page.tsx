@@ -1,4 +1,8 @@
-import { MoonStarsIcon } from "@phosphor-icons/react/dist/ssr";
+import {
+  GithubLogoIcon,
+  MoonStarsIcon,
+  RocketLaunchIcon,
+} from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
 import Link from "next/link";
 import Logo from "@/components/Logo";
@@ -19,7 +23,7 @@ const coreContributors = [
     ],
   },
   {
-    name: "Amianthus",
+    name: "amianthus",
     image: "/contributors/amianthus.jpg",
     description: "Engineering at Autumn",
     descriptionLogo: {
@@ -46,13 +50,22 @@ export default function Home() {
                 Tailwind CSS and Base UI primitives.
               </p>
               <div className="mt-4 flex flex-wrap items-center gap-2">
-                <Button href="/setup">Get Started</Button>
+                <Button className="items-center" href="/setup">
+                  <RocketLaunchIcon
+                    aria-hidden="true"
+                    size={16}
+                    weight="fill"
+                  />
+                  Get Started
+                </Button>
                 <Button
+                  className="items-center"
                   href="https://github.com/dqnamo/Chord"
                   rel="noreferrer"
                   target="_blank"
                   variant="secondary"
                 >
+                  <GithubLogoIcon aria-hidden="true" size={16} weight="fill" />
                   GitHub
                 </Button>
               </div>
@@ -130,7 +143,7 @@ export default function Home() {
                   <ThemeToggle />
                 </div>
               </div>
-              <div className="flex flex-row flex-wrap items-start gap-3">
+              <div className="flex flex-row flex-wrap items-start gap-8">
                 <div className="flex flex-col gap-1.5">
                   <p className="font-medium text-grayscale-9 text-xs">
                     Grayscale Color

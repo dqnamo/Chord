@@ -17,11 +17,11 @@ const Input = ({
 }: React.ComponentProps<typeof BaseOTPField.Input>) => (
   <BaseOTPField.Input
     className={cn(
-      "size-9 rounded-lg border border-b-2 border-grayscale-4 bg-grayscale-1 text-center text-sm text-grayscale-12 transition-colors outline-none",
+      "size-9 rounded-lg border border-grayscale-4 bg-grayscale-1 text-center text-sm text-grayscale-12 transition-colors outline-none",
       "hover:border-grayscale-5",
       "focus-within:border-accent-8 focus-within:ring-2 focus-within:ring-accent-4",
       "focus-visible:border-accent-8 focus-visible:ring-2 focus-visible:ring-accent-4",
-      "dark:border-grayscale-4 dark:bg-grayscale-2",
+      "dark:bg-grayscale-2",
       className,
     )}
     {...props}

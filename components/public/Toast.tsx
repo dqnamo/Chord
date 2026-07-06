@@ -63,7 +63,7 @@ const Action = ({
 }: React.ComponentProps<typeof BaseToast.Action>) => (
   <BaseToast.Action
     className={cn(
-      "mt-1 cursor-pointer self-start rounded-md border border-b-2 border-grayscale-3 bg-grayscale-1 px-2 py-0.5 text-xs font-medium text-grayscale-11 transition-colors hover:bg-grayscale-2 dark:border-grayscale-4 dark:bg-grayscale-3",
+      "mt-1 cursor-pointer self-start rounded-md border border-grayscale-3 bg-grayscale-1 px-2 py-0.5 text-xs font-medium text-grayscale-11 transition-colors hover:bg-grayscale-2 dark:border-grayscale-4 dark:bg-grayscale-3",
       className,
     )}
     {...props}

@@ -3,6 +3,7 @@ import sc_accordion from "./accordion";
 import sc_alert from "./alert";
 import sc_alert_dialog from "./alert-dialog";
 import sc_aspect_ratio from "./aspect-ratio";
+import sc_autocomplete from "./autocomplete";
 import sc_avatar from "./avatar";
 import sc_badge from "./badge";
 import sc_breadcrumb from "./breadcrumb";
@@ -19,6 +20,7 @@ import sc_drawer from "./drawer";
 import sc_dropdown_menu from "./dropdown-menu";
 import sc_field from "./field";
 import sc_fieldset from "./fieldset";
+import sc_form from "./form";
 import sc_hover_card from "./hover-card";
 import sc_input from "./input";
 import sc_input_group from "./input-group";
@@ -57,6 +59,7 @@ export const showcases: ShowcaseDef[] = [
   sc_alert,
   sc_alert_dialog,
   sc_aspect_ratio,
+  sc_autocomplete,
   sc_avatar,
   sc_badge,
   sc_breadcrumb,
@@ -73,6 +76,7 @@ export const showcases: ShowcaseDef[] = [
   sc_dropdown_menu,
   sc_field,
   sc_fieldset,
+  sc_form,
   sc_hover_card,
   sc_input,
   sc_input_group,

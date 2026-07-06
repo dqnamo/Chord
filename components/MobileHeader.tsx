@@ -8,6 +8,9 @@ import Logo from "@/components/Logo";
 import { SidebarNavContent } from "@/components/Sidebar";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
+const iconButtonClasses =
+  "flex size-8 cursor-pointer items-center justify-center rounded-lg border border-grayscale-3 bg-white text-grayscale-11 transition-colors hover:border-grayscale-4 hover:bg-grayscale-2 dark:border-grayscale-4 dark:bg-grayscale-3 dark:hover:border-grayscale-5 dark:hover:bg-grayscale-4";
+
 export default function MobileHeader() {
   const [open, setOpen] = useState(false);
 
@@ -18,7 +21,7 @@ export default function MobileHeader() {
           <Dialog.Trigger
             aria-label="Open navigation"
             title="Open navigation"
-            className="flex size-8 cursor-pointer items-center justify-center rounded-lg border border-b-2 border-grayscale-3 bg-white text-grayscale-11 transition-colors hover:bg-grayscale-2 hover:border-grayscale-4 dark:border-grayscale-4 dark:bg-grayscale-3 dark:hover:bg-grayscale-4 dark:hover:border-grayscale-5"
+            className={iconButtonClasses}
           >
             <ListIcon size={18} weight="bold" />
           </Dialog.Trigger>
@@ -52,7 +55,7 @@ export default function MobileHeader() {
             <Dialog.Close
               aria-label="Close navigation"
               title="Close navigation"
-              className="flex size-8 cursor-pointer items-center justify-center rounded-lg border border-b-2 border-grayscale-3 bg-white text-grayscale-11 transition-colors hover:bg-grayscale-2 hover:border-grayscale-4 dark:border-grayscale-4 dark:bg-grayscale-3 dark:hover:bg-grayscale-4 dark:hover:border-grayscale-5"
+              className={iconButtonClasses}
             >
               <XIcon size={16} weight="bold" />
             </Dialog.Close>

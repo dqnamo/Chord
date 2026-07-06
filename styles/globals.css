@@ -1,15 +1,11 @@
 @import "tailwindcss";
 @import "./theme.css";
 
-
 @theme inline {
-
   --font-sans: var(--font-inter);
   --font-pirata: var(--font-pirata-one);
   --font-mono: var(--font-jetbrains-mono);
   --font-arvo: var(--font-arvo);
-
-
 
   --color-grayscale-1: var(--gray-1);
   --color-grayscale-2: var(--gray-2);
@@ -122,7 +118,6 @@ body {
     0 4px 16px 0 rgba(0, 0, 0, 0.06),
     0 1.5px 6px 0 rgba(0, 0, 0, 0.04);
 }
-
 
 .small-shadow {
   box-shadow:

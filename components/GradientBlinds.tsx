@@ -1,7 +1,8 @@
 "use client";
 
 import { Mesh, Program, Renderer, Triangle } from "ogl";
-import { useEffect, useRef, type CSSProperties } from "react";
+import { type CSSProperties, useEffect, useRef } from "react";
+import { cn } from "@/helpers/classname-helper";
 
 type GradientBlindsProps = {
   className?: string;
@@ -232,7 +233,9 @@ void main() {
 
     const { arr: colorArr, count: colorCount } = prepStops(gradientColors);
     const uniforms = {
-      iResolution: { value: [gl.drawingBufferWidth, gl.drawingBufferHeight, 1] },
+      iResolution: {
+        value: [gl.drawingBufferWidth, gl.drawingBufferHeight, 1],
+      },
       iMouse: { value: [0, 0] },
       iTime: { value: 0 },
       uAngle: { value: (angle * Math.PI) / 180 },
@@ -277,7 +280,10 @@ void main() {
       ];
 
       if (blindMinWidth > 0) {
-        const maxByMinWidth = Math.max(1, Math.floor(rect.width / blindMinWidth));
+        const maxByMinWidth = Math.max(
+          1,
+          Math.floor(rect.width / blindMinWidth),
+        );
         uniforms.uBlindCount.value = Math.max(
           1,
           Math.min(blindCount, maxByMinWidth),
@@ -373,7 +379,7 @@ void main() {
   return (
     <div
       ref={containerRef}
-      className={`relative h-full w-full overflow-hidden ${className ?? ""}`}
+      className={cn("relative h-full w-full overflow-hidden", className)}
       style={{ mixBlendMode }}
     />
   );

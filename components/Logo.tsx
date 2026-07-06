@@ -10,7 +10,11 @@ export default function Logo({ textMark = false }: LogoProps) {
         <div className="h-5 w-1.5 bg-cyan-9"></div>
         <div className="h-5 w-1.5 bg-sky-9"></div>
       </div>
-      {textMark ? <span className="font-mono uppercase font-bold text-2xl text-grayscale-12 leading-none">Chord</span> : null}
+      {textMark ? (
+        <span className="font-mono uppercase font-bold text-2xl text-grayscale-12 leading-none">
+          Chord
+        </span>
+      ) : null}
     </div>
-  )
+  );
 }

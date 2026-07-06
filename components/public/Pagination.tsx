@@ -14,7 +14,7 @@ const List = ({ className, ...props }: React.ComponentProps<"ul">) => (
 );
 
 const baseButton =
-  "flex h-8 min-w-8 cursor-pointer items-center justify-center gap-1 rounded-lg border border-b-2 px-2 text-sm font-medium transition-colors outline-none focus-visible:ring-2 focus-visible:ring-accent-4";
+  "flex h-8 min-w-8 cursor-pointer items-center justify-center gap-1 rounded-lg border px-2 text-sm font-medium transition-colors outline-none focus-visible:ring-2 focus-visible:ring-accent-4";
 
 const inactiveButton =
   "border-grayscale-3 bg-white text-grayscale-11 hover:bg-grayscale-2 hover:border-grayscale-4 dark:border-grayscale-4 dark:bg-grayscale-3 dark:hover:bg-grayscale-4 dark:hover:border-grayscale-5";
