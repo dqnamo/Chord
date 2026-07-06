@@ -54,7 +54,7 @@ export default function Home() {
                   <RocketLaunchIcon
                     aria-hidden="true"
                     size={16}
-                    weight="fill"
+                    weight="bold"
                   />
                   Get Started
                 </Button>
@@ -65,7 +65,7 @@ export default function Home() {
                   target="_blank"
                   variant="secondary"
                 >
-                  <GithubLogoIcon aria-hidden="true" size={16} weight="fill" />
+                  <GithubLogoIcon aria-hidden="true" size={16} weight="bold" />
                   GitHub
                 </Button>
               </div>
