@@ -15,7 +15,7 @@ export function ThemeToggle({ size = 16 }: { size?: number }) {
   const checked = mounted && resolvedTheme === "dark";
 
   return (
-    <Switch.Composed
+    <Switch
       aria-label="Toggle dark mode"
       checked={checked}
       disabled={!mounted}

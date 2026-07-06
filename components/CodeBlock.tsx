@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 import type { CodeLine } from "@/helpers/syntax";
 
 export default function CodeBlock({ lines }: { lines: CodeLine[] }) {

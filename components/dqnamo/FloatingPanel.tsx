@@ -130,7 +130,7 @@ function ThemeFooter({ isRightAligned }: { isRightAligned: boolean }) {
       <p className="font-medium font-mono text-grayscale-10 text-tiny uppercase">
         Dark Mode
       </p>
-      <Switch.Composed
+      <Switch
         aria-label="Toggle dark mode"
         checked={mounted && resolvedTheme === "dark"}
         disabled={!mounted}

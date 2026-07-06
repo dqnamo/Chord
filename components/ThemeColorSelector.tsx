@@ -97,7 +97,7 @@ export default function ThemeColorSelector<TAxis extends ThemeColorAxis>({
             aria-label={`Use ${option.label} ${axis}`}
             aria-pressed={isSelected}
             className={cn(
-              "group relative flex size-5 aspect-square items-center justify-center  border-grayscale-6 bg-grayscale-2 transition-colors hover:border-grayscale-9 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-9",
+              "group relative flex size-5 aspect-square items-center justify-center border-grayscale-6 bg-grayscale-2 transition-colors hover:border-grayscale-9 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-9",
             )}
             key={option.id}
             onClick={() => selectColor(option.id as ThemeColorValue<TAxis>)}
