@@ -32,7 +32,7 @@ const coreContributors = [
     },
     links: [
       { href: "https://github.com/SirTenzin", label: "GitHub" },
-      { href: "https://x.com/amianthus", label: "X" },
+      { href: "https://x.com/amianthus_", label: "X" },
     ],
   },
 ];

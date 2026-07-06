@@ -51,15 +51,18 @@ const Trigger = ({
 
 const Panel = ({
   className,
+  children,
   ...props
 }: React.ComponentProps<typeof BaseAccordion.Panel>) => (
   <BaseAccordion.Panel
     className={cn(
-      "h-[var(--accordion-panel-height)] overflow-hidden pb-2 text-sm text-grayscale-10 transition-[height] duration-150 ease-out data-[ending-style]:h-0 data-[starting-style]:h-0",
+      "h-[var(--accordion-panel-height)] overflow-hidden transition-[height] duration-150 ease-out data-[ending-style]:h-0 data-[starting-style]:h-0",
       className,
     )}
     {...props}
-  />
+  >
+    <div className="pb-2 text-sm text-grayscale-10">{children}</div>
+  </BaseAccordion.Panel>
 );
 
 export const Accordion = { Root, Item, Header, Trigger, Panel };
