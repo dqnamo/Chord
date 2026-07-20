@@ -14,7 +14,6 @@ type PreviewTab = {
 
 export type ComponentShowcaseProps = {
   id?: string;
-  title: string;
   previewTabs: PreviewTab[];
   usageCodeLines: CodeLine[];
   componentCodeLines: CodeLine[];
@@ -22,21 +21,17 @@ export type ComponentShowcaseProps = {
 
 export default function ComponentShowcase({
   id,
-  title,
   previewTabs,
   usageCodeLines,
   componentCodeLines,
 }: ComponentShowcaseProps) {
   return (
     <div className="flex scroll-mt-8 flex-col" id={id}>
-      <div className="flex flex-col gap-px p-2">
-        <h2 className="font-medium text-sm text-grayscale-10">{title}</h2>
-      </div>
-      <Card className="mt-2 min-h-[28rem] overflow-hidden lg:h-[34rem]">
-        <div className="grid h-full min-h-0 flex-1 grid-cols-1 gap-1.5 lg:grid-cols-2">
+      <Card className="overflow-hidden">
+        <div className="grid min-h-0 flex-1 grid-cols-1 gap-1.5">
           <Card
             layer={1}
-            className="small-shadow flex min-h-0 flex-col rounded-lg dark:bg-grayscale-2! dark:border-dashed dark:border-grayscale-3!"
+            className="small-shadow flex h-[28rem] min-h-0 flex-col rounded-lg lg:h-[34rem] dark:bg-grayscale-2! dark:border-dashed dark:border-grayscale-3!"
           >
             <Tabs.Base.Root
               className="flex flex-1 flex-col"
@@ -69,7 +64,7 @@ export default function ComponentShowcase({
           </Card>
           <Card
             layer={1}
-            className="small-shadow flex min-h-0 flex-col overflow-hidden rounded-lg border border-grayscale-3 bg-grayscale-1"
+            className="small-shadow flex h-[28rem] min-h-0 flex-col overflow-hidden rounded-lg border border-grayscale-3 bg-grayscale-1 lg:h-[34rem]"
           >
             <Tabs.Base.Root
               className="flex min-h-0 flex-1 flex-col"

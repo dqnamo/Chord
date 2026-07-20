@@ -47,7 +47,7 @@ export default async function ComponentPage({
   ]);
 
   return (
-    <div className="mx-auto flex w-full max-w-5xl flex-col border-grayscale-3 border-x p-4 md:p-8 lg:p-16 dark:border-grayscale-2">
+    <div className="mx-auto flex w-full max-w-4xl flex-col p-4 md:p-8 lg:p-12">
       <div className="flex flex-col gap-1 p-2">
         <h1 className="font-medium text-grayscale-11">{page.displayTitle}</h1>
         <p className="max-w-md text-grayscale-10 text-sm text-pretty">
@@ -60,7 +60,6 @@ export default async function ComponentPage({
           componentCodeLines={componentCodeLines}
           id={page.slug}
           previewTabs={page.previewTabs}
-          title={page.displayTitle}
           usageCodeLines={usageCodeLines}
         />
       </div>
