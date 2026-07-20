@@ -28,7 +28,7 @@ export default function Home() {
               <Logo textMark={true} />
               <p className="mt-1 max-w-md text-balance font-medium text-base text-grayscale-11">
                 Opinionated, open source composed component library built with
-                Tailwind CSS and Base UI primitives.
+                Radix colors, Tailwind CSS and Base UI primitives.
               </p>
               <div className="mt-4 flex flex-wrap items-center gap-2">
                 <ButtonLink href="/setup">
