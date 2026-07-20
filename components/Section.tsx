@@ -7,7 +7,7 @@ export default function Section({
 }: React.ComponentProps<"div">) {
   return (
     <div className={cn("flex flex-col", className)} {...props}>
-      <div className="mx-auto flex w-full max-w-4xl flex-col border-x border-grayscale-3 p-4 md:p-8 lg:p-16 dark:border-grayscale-2">
+      <div className="mx-auto flex w-full max-w-4xl flex-col p-4 md:p-8 lg:p-12">
         {children}
       </div>
     </div>

@@ -10,6 +10,14 @@ import ThemeColorSelector from "@/components/ThemeColorSelector";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { componentPages } from "./components/component-pages";
 
+const mediumGridFillerKeys = ["medium-grid-filler"].slice(
+  0,
+  (2 - (componentPages.length % 2)) % 2,
+);
+const largeGridFillerKeys = [
+  "large-grid-filler-1",
+  "large-grid-filler-2",
+].slice(0, (3 - (componentPages.length % 3)) % 3);
 export default function Home() {
   return (
     <div className="flex flex-col divide-y divide-grayscale-3">
@@ -75,16 +83,10 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="flex flex-row items-center border-x border-grayscale-3 dark:border-grayscale-3 justify-between gap-12 p-3">
+            <div className="flex items-center border-x border-grayscale-3 p-3 dark:border-grayscale-3">
               <p className="font-medium text-xs uppercase font-mono text-grayscale-9">
                 Components
               </p>
-              <Link
-                className="font-mono text-grayscale-9 text-tiny uppercase hover:text-grayscale-12"
-                href="/components"
-              >
-                View all
-              </Link>
             </div>
             <div className="bg-grayscale-3 p-px gap-px grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
               {componentPages.map((component) => (
@@ -108,6 +110,20 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
+              ))}
+              {mediumGridFillerKeys.map((key) => (
+                <div
+                  aria-hidden="true"
+                  className="hidden aspect-square bg-grayscale-1 md:block lg:hidden"
+                  key={key}
+                />
+              ))}
+              {largeGridFillerKeys.map((key) => (
+                <div
+                  aria-hidden="true"
+                  className="hidden aspect-square bg-grayscale-1 lg:block"
+                  key={key}
+                />
               ))}
             </div>
           </div>
