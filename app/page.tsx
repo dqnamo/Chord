@@ -3,39 +3,12 @@ import {
   MoonStarsIcon,
   RocketLaunchIcon,
 } from "@phosphor-icons/react/dist/ssr";
-import Image from "next/image";
 import Link from "next/link";
 import Logo from "@/components/Logo";
 import Button from "@/components/public/Button";
-import TextLink from "@/components/public/TextLink";
 import ThemeColorSelector from "@/components/ThemeColorSelector";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { componentPages } from "./components/component-pages";
-
-const coreContributors = [
-  {
-    name: "JP",
-    image: "/contributors/jp.jpg",
-    description: "Crafting at Interface London",
-    links: [
-      { href: "https://github.com/dqnamo", label: "GitHub" },
-      { href: "https://x.com/dqnamo", label: "X" },
-    ],
-  },
-  {
-    name: "amianthus",
-    image: "/contributors/amianthus.jpg",
-    description: "Engineering at Autumn",
-    descriptionLogo: {
-      alt: "Autumn logo",
-      src: "/contributors/autumn.jpg",
-    },
-    links: [
-      { href: "https://github.com/SirTenzin", label: "GitHub" },
-      { href: "https://x.com/amianthus_", label: "X" },
-    ],
-  },
-];
 
 export default function Home() {
   return (
@@ -68,58 +41,6 @@ export default function Home() {
                   <GithubLogoIcon aria-hidden="true" size={16} weight="bold" />
                   GitHub
                 </Button>
-              </div>
-              <div className="mt-8 flex flex-col gap-3">
-                <p className="font-mono font-medium text-grayscale-9 text-xs uppercase">
-                  Core Contributors
-                </p>
-                <div className="flex flex-row flex-wrap gap-4">
-                  {coreContributors.map((contributor) => (
-                    <div
-                      className="flex max-w-sm flex-row flex-1 items-center gap-2"
-                      key={contributor.name}
-                    >
-                      <Image
-                        alt={`${contributor.name} avatar`}
-                        className="size-8 shrink-0 rounded-full object-cover"
-                        height={72}
-                        src={contributor.image}
-                        width={72}
-                      />
-                      <div className="min-w-0">
-                        <div className="flex flex-wrap items-baseline gap-2">
-                          <p className="font-medium text-grayscale-12 text-sm">
-                            {contributor.name}
-                          </p>
-                          <div className="flex flex-wrap gap-1.5">
-                            {contributor.links.map((link) => (
-                              <TextLink
-                                href={link.href}
-                                key={link.href}
-                                rel="noreferrer"
-                                target="_blank"
-                              >
-                                {link.label}
-                              </TextLink>
-                            ))}
-                          </div>
-                        </div>
-                        <p className="flex items-center gap-1 text-grayscale-10 text-xs">
-                          {contributor.description}
-                          {contributor.descriptionLogo ? (
-                            <Image
-                              alt={contributor.descriptionLogo.alt}
-                              className="size-3 rounded-sm object-cover"
-                              height={24}
-                              src={contributor.descriptionLogo.src}
-                              width={24}
-                            />
-                          ) : null}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
               </div>
             </div>
           </div>
