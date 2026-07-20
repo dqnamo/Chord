@@ -91,7 +91,7 @@ export default function Home() {
             <div className="bg-grayscale-3 p-px gap-px grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
               {componentPages.map((component) => (
                 <div
-                  className="group relative flex aspect-square flex-col items-center justify-center bg-grayscale-1 p-4 transition-colors hover:bg-grayscale-2 dark:hover:bg-grayscale-3"
+                  className="group relative flex aspect-square flex-col items-center justify-center bg-grayscale-1 p-4 transition-colors hover:bg-grayscale-2 dark:hover:bg-grayscale-2"
                   key={component.slug}
                 >
                   <Link

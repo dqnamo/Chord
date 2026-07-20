@@ -29,9 +29,11 @@ export function SidebarNavContent({ onNavigate }: { onNavigate?: () => void }) {
       <nav className="flex flex-col gap-5">
         {navGroups.map((group) => (
           <div className="flex flex-col gap-1" key={group.title}>
-            <h2 className="px-2 font-mono font-medium text-grayscale-9 text-xs uppercase">
-              {group.title}
-            </h2>
+            {group.title === "Getting Started" ? null : (
+              <h2 className="px-2 font-mono font-medium text-grayscale-9 text-xs uppercase">
+                {group.title}
+              </h2>
+            )}
             <div className="flex flex-col gap-px">
               {group.items.map((item) => (
                 <Link
