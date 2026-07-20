@@ -5,7 +5,7 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
 import Logo from "@/components/Logo";
-import Button from "@/components/public/Button";
+import { ButtonLink } from "@/components/public/Button";
 import ThemeColorSelector from "@/components/ThemeColorSelector";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { componentPages } from "./components/component-pages";
@@ -23,16 +23,15 @@ export default function Home() {
                 Tailwind CSS and Base UI primitives.
               </p>
               <div className="mt-4 flex flex-wrap items-center gap-2">
-                <Button className="items-center" href="/setup">
+                <ButtonLink href="/setup">
                   <RocketLaunchIcon
                     aria-hidden="true"
                     size={16}
                     weight="bold"
                   />
                   Get Started
-                </Button>
-                <Button
-                  className="items-center"
+                </ButtonLink>
+                <ButtonLink
                   href="https://github.com/dqnamo/Chord"
                   rel="noreferrer"
                   target="_blank"
@@ -40,7 +39,7 @@ export default function Home() {
                 >
                   <GithubLogoIcon aria-hidden="true" size={16} weight="bold" />
                   GitHub
-                </Button>
+                </ButtonLink>
               </div>
             </div>
           </div>

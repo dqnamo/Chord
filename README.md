@@ -24,7 +24,7 @@ Open [http://localhost:3000](http://localhost:3000).
 
 Copy-paste components live in `components/public/`:
 
-- **Button** — primary and secondary variants
+- **Button** — primary and secondary action buttons, plus button-styled links
 - **TextLink** — styled anchor
 - **Tabs** — tabbed navigation with animated indicator
 - **Switch** — toggle switch
