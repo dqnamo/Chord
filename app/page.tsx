@@ -1,7 +1,7 @@
 import {
   GithubLogoIcon,
   MoonStarsIcon,
-  RocketLaunchIcon,
+  MusicNoteIcon,
 } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
 import Logo from "@/components/Logo";
@@ -24,11 +24,7 @@ export default function Home() {
               </p>
               <div className="mt-4 flex flex-wrap items-center gap-2">
                 <ButtonLink href="/setup">
-                  <RocketLaunchIcon
-                    aria-hidden="true"
-                    size={16}
-                    weight="bold"
-                  />
+                  <MusicNoteIcon aria-hidden="true" size={16} weight="fill" />
                   Get Started
                 </ButtonLink>
                 <ButtonLink
