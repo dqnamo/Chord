@@ -13,7 +13,7 @@ export const THEME_COLOR_OPTIONS = {
   },
   accent: {
     storageKey: "chord:accent",
-    defaultValue: "teal",
+    defaultValue: "orange",
     values: [
       { id: "bronze", label: "Bronze" },
       { id: "gold", label: "Gold" },
