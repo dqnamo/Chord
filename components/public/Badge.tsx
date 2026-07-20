@@ -13,7 +13,7 @@ export default function Badge({
   ...props
 }: BadgeProps) {
   const baseClasses =
-    "inline-flex items-center gap-1 rounded-md border px-1.5 py-0.5 text-tiny font-medium leading-none";
+    "inline-flex items-center gap-1 whitespace-nowrap rounded-md border px-1.5 py-0.5 text-xs font-medium leading-none";
 
   const variantClasses = {
     secondary: "border-grayscale-4 bg-grayscale-2 text-grayscale-11",
