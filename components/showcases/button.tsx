@@ -1,4 +1,4 @@
-import Button from "@/components/public/Button";
+import Button, { ButtonLink } from "@/components/public/Button";
 import type { ShowcaseDef } from "@/helpers/showcase";
 
 const showcase: ShowcaseDef = {
@@ -6,7 +6,7 @@ const showcase: ShowcaseDef = {
   title: "The Button",
   category: "Buttons & Actions",
   file: "Button.tsx",
-  usage: `import Button from "@/components/public/Button";
+  usage: `import Button, { ButtonLink } from "@/components/public/Button";
 
 <Button variant="primary">
   Click me
@@ -14,7 +14,11 @@ const showcase: ShowcaseDef = {
 
 <Button variant="secondary">
   Secondary
-</Button>`,
+</Button>
+
+<ButtonLink href="/docs">
+  Documentation
+</ButtonLink>`,
   previewTabs: [
     {
       value: "primary",
@@ -25,6 +29,11 @@ const showcase: ShowcaseDef = {
       value: "secondary",
       label: "Secondary",
       content: <Button variant="secondary">Secondary</Button>,
+    },
+    {
+      value: "link",
+      label: "Link",
+      content: <ButtonLink href="#button-link">Button link</ButtonLink>,
     },
   ],
 };
