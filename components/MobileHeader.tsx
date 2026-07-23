@@ -45,9 +45,9 @@ export default function MobileHeader() {
       </header>
 
       <Dialog.Portal>
-        <Dialog.Backdrop className="fixed inset-0 z-100 bg-grayscale-1/75 md:hidden" />
-        <Dialog.Popup className="fixed inset-y-0 left-0 z-100 flex h-dvh w-80 max-w-[calc(100vw-2rem)] flex-col gap-px border-r border-grayscale-3 bg-grayscale-1 px-4 py-4 shadow-xl outline-none md:hidden dark:border-grayscale-2">
-          <div className="mb-4 flex items-center justify-between px-2">
+        <Dialog.Backdrop className="fixed inset-0 z-100 bg-grayscale-1/75 backdrop-blur-[2px] transition-opacity duration-200 ease-out md:hidden data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 dark:bg-black/60" />
+        <Dialog.Popup className="fixed inset-y-0 left-0 z-100 flex h-dvh w-80 max-w-[calc(100vw-2rem)] flex-col gap-px border-r border-grayscale-3 bg-grayscale-1 py-4 shadow-xl outline-none transition-transform duration-200 ease-out md:hidden data-[ending-style]:-translate-x-full data-[starting-style]:-translate-x-full dark:border-grayscale-2">
+          <div className="mb-4 flex items-center justify-between px-5">
             <Dialog.Title className="sr-only">Navigation</Dialog.Title>
             <div className="flex items-center gap-2 font-mono text-sm font-bold uppercase text-grayscale-12">
               <Logo />
