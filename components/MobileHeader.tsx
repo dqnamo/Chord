@@ -9,7 +9,7 @@ import { SidebarNavContent } from "@/components/Sidebar";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 const iconButtonClasses =
-  "flex size-8 cursor-pointer items-center justify-center rounded-lg border border-grayscale-3 bg-white text-grayscale-11 transition-colors hover:border-grayscale-4 hover:bg-grayscale-2 dark:border-grayscale-4 dark:bg-grayscale-3 dark:hover:border-grayscale-5 dark:hover:bg-grayscale-4";
+  "flex size-8 cursor-pointer items-center justify-center rounded-lg text-grayscale-11 transition-colors hover:bg-grayscale-2 dark:hover:bg-grayscale-3";
 
 export default function MobileHeader() {
   const [open, setOpen] = useState(false);
@@ -17,7 +17,7 @@ export default function MobileHeader() {
   return (
     <Dialog.Root open={open} onOpenChange={(nextOpen) => setOpen(nextOpen)}>
       <header className="pointer-events-none fixed inset-x-0 top-0 z-100 flex h-14 md:hidden">
-        <div className="pointer-events-auto relative mx-auto flex h-full w-full items-center justify-between border-x border-grayscale-3 bg-grayscale-1/95 p-2 px-4 backdrop-blur dark:border-grayscale-2 md:px-8 lg:px-16">
+        <div className="pointer-events-auto relative mx-auto flex h-full w-full items-center justify-between border-b border-grayscale-3 bg-grayscale-1/95 p-2 px-4 backdrop-blur dark:border-grayscale-2 md:px-8 lg:px-16">
           <Dialog.Trigger
             aria-label="Open navigation"
             title="Open navigation"
@@ -27,9 +27,10 @@ export default function MobileHeader() {
           </Dialog.Trigger>
           <Link
             href="/"
-            className="-translate-x-1/2 absolute left-1/2 font-mono text-sm font-bold uppercase text-grayscale-12"
+            aria-label="Chord home"
+            className="-translate-x-1/2 absolute left-1/2"
           >
-            Chord
+            <Logo />
           </Link>
           <div className="flex items-center gap-2 text-grayscale-10">
             <MoonStarsIcon

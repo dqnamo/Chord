@@ -22,7 +22,7 @@ export default function Home() {
   return (
     <div className="flex flex-col divide-y divide-grayscale-3">
       <div className="flex flex-col w-full">
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 p-4 md:p-8 lg:p-12">
+        <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-0 py-4 md:p-8 lg:p-12">
           <div className="flex flex-row items-center justify-between gap-12">
             <div className="flex flex-col p-3">
               <Logo textMark={true} />
@@ -50,9 +50,9 @@ export default function Home() {
         </div>
       </div>
       <div className="flex flex-col w-full">
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-4 md:px-8 lg:px-12">
+        <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-0 md:px-8 lg:px-12">
           <div className="w-full dark:border-grayscale-2">
-            <div className="flex flex-col border-x border-grayscale-3 gap-3 p-3 border-b border-grayscale-3 sticky top-0 bg-grayscale-1 z-30">
+            <div className="flex flex-col md:border-x border-grayscale-3 gap-3 p-3 border-b border-grayscale-3 sticky top-0 bg-grayscale-1 z-30">
               <div className="flex items-center justify-between gap-3">
                 <p className="font-medium text-xs uppercase font-mono text-grayscale-9">
                   Colors
@@ -83,7 +83,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="flex items-center border-x border-grayscale-3 p-3 dark:border-grayscale-3">
+            <div className="flex items-center md:border-x border-grayscale-3 p-3 dark:border-grayscale-3">
               <p className="font-medium text-xs uppercase font-mono text-grayscale-9">
                 Components
               </p>
