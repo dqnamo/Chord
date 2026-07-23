@@ -9,7 +9,7 @@ import { SidebarNavContent } from "@/components/Sidebar";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 const iconButtonClasses =
-  "flex size-8 cursor-pointer items-center justify-center rounded-lg border border-grayscale-3 bg-white text-grayscale-11 transition-colors hover:border-grayscale-4 hover:bg-grayscale-2 dark:border-grayscale-4 dark:bg-grayscale-3 dark:hover:border-grayscale-5 dark:hover:bg-grayscale-4";
+  "flex size-8 cursor-pointer items-center justify-center rounded-lg text-grayscale-11 transition-colors hover:bg-grayscale-2 dark:hover:bg-grayscale-3";
 
 export default function MobileHeader() {
   const [open, setOpen] = useState(false);
