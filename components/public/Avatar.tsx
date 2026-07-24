@@ -24,11 +24,6 @@ const Image = ({
   />
 );
 
-const Fallback = ({
-  className,
-  ...props
-}: React.ComponentProps<typeof BaseAvatar.Fallback>) => (
-  <BaseAvatar.Fallback className={cn(className)} {...props} />
-);
+const Fallback = BaseAvatar.Fallback;
 
 export const Avatar = { Root, Image, Fallback };

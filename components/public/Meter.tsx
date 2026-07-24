@@ -46,7 +46,10 @@ const Indicator = ({
   ...props
 }: React.ComponentProps<typeof BaseMeter.Indicator>) => (
   <BaseMeter.Indicator
-    className={cn("h-full bg-accent-9 transition-all", className)}
+    className={cn(
+      "h-full bg-accent-9 transition-[width] duration-150 ease-out motion-reduce:transition-none",
+      className,
+    )}
     {...props}
   />
 );

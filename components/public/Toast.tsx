@@ -24,7 +24,7 @@ const Root = ({
   <BaseToast.Root
     className={cn(
       "medium-shadow flex flex-col gap-1 rounded-lg border border-grayscale-3 bg-grayscale-1 p-3",
-      "transition-all duration-150 ease-out",
+      "transition-[transform,opacity] duration-150 ease-out motion-reduce:transition-none",
       "data-[starting-style]:translate-y-2 data-[starting-style]:opacity-0",
       "data-[ending-style]:translate-y-2 data-[ending-style]:opacity-0",
       "data-[swiping]:transition-none",

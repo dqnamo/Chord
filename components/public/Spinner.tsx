@@ -12,7 +12,10 @@ export default function Spinner({
     <CircleNotchIcon
       size={size}
       weight="bold"
-      className={cn("animate-spin text-grayscale-9", className)}
+      className={cn(
+        "animate-spin text-grayscale-9 motion-reduce:animate-pulse",
+        className,
+      )}
       {...props}
     />
   );

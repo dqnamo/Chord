@@ -27,7 +27,7 @@ const Panel = ({
 }: React.ComponentProps<typeof BaseCollapsible.Panel>) => (
   <BaseCollapsible.Panel
     className={cn(
-      "h-[var(--collapsible-panel-height)] overflow-hidden text-sm text-grayscale-10 transition-[height] duration-150 ease-out data-[ending-style]:h-0 data-[starting-style]:h-0",
+      "h-[var(--collapsible-panel-height)] overflow-hidden text-sm text-grayscale-10 transition-[height] duration-150 ease-out motion-reduce:transition-none data-[ending-style]:h-0 data-[starting-style]:h-0",
       className,
     )}
     {...props}

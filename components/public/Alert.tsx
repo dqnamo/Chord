@@ -1,26 +1,30 @@
+import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/helpers/classname-helper";
 
-type AlertVariant = "default" | "accent";
+export const alertVariants = cva("flex gap-2 rounded-lg border p-3", {
+  variants: {
+    variant: {
+      default: "border-grayscale-3 bg-grayscale-2 text-grayscale-11",
+      accent: "border-accent-6 bg-accent-2 text-accent-11",
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+});
 
-const variantClasses: Record<AlertVariant, string> = {
-  default: "border-grayscale-3 bg-grayscale-2 text-grayscale-11",
-  accent: "border-accent-6 bg-accent-2 text-accent-11",
+type AlertVariantProps = VariantProps<typeof alertVariants>;
+
+export type AlertVariant = NonNullable<AlertVariantProps["variant"]>;
+
+export type AlertRootProps = React.ComponentProps<"div"> & {
+  variant?: AlertVariant;
 };
 
-const Root = ({
-  variant = "default",
-  className,
-  ...props
-}: {
-  variant?: AlertVariant;
-} & React.ComponentProps<"div">) => (
+const Root = ({ variant = "default", className, ...props }: AlertRootProps) => (
   <div
     role="alert"
-    className={cn(
-      "flex gap-2 rounded-lg border p-3",
-      variantClasses[variant],
-      className,
-    )}
+    className={cn(alertVariants({ variant }), className)}
     {...props}
   />
 );

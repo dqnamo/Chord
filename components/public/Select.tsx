@@ -51,7 +51,7 @@ const Popup = ({
 }: React.ComponentProps<typeof BaseSelect.Popup>) => (
   <BaseSelect.Popup
     className={cn(
-      "medium-shadow max-h-[var(--available-height)] min-w-[var(--anchor-width)] overflow-y-auto rounded-lg border border-grayscale-3 bg-grayscale-1 p-1 transition-all duration-150 ease-out",
+      "medium-shadow max-h-[var(--available-height)] min-w-[var(--anchor-width)] origin-[var(--transform-origin)] overflow-y-auto rounded-lg border border-grayscale-3 bg-grayscale-1 p-1 transition-[transform,opacity] duration-150 ease-out motion-reduce:transition-none",
       "data-[starting-style]:scale-95 data-[starting-style]:opacity-0",
       "data-[ending-style]:scale-95 data-[ending-style]:opacity-0",
       "dark:border-grayscale-4 dark:bg-grayscale-2",

@@ -881,7 +881,7 @@ const cssFiles = {
 };
 
 const installCommand =
-  "npm install @radix-ui/colors @phosphor-icons/react motion tailwind-merge clsx";
+  "npm install @radix-ui/colors @phosphor-icons/react class-variance-authority motion tailwind-merge clsx";
 
 const classnameHelperTS = `import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";

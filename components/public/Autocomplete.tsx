@@ -63,7 +63,7 @@ const Popup = ({
   <BaseAutocomplete.Popup
     className={cn(
       "max-h-64 w-[var(--anchor-width)] overflow-y-auto rounded-lg border border-grayscale-4 bg-grayscale-1 p-1 medium-shadow outline-none dark:bg-grayscale-2",
-      "origin-[var(--transform-origin)] transition-all duration-150 ease-out",
+      "origin-[var(--transform-origin)] transition-[transform,opacity] duration-150 ease-out motion-reduce:transition-none",
       "data-[starting-style]:scale-95 data-[starting-style]:opacity-0",
       "data-[ending-style]:scale-95 data-[ending-style]:opacity-0",
       "data-[empty]:hidden",

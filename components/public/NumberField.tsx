@@ -2,12 +2,7 @@ import { NumberField as BaseNumberField } from "@base-ui/react/number-field";
 import { MinusIcon, PlusIcon } from "@phosphor-icons/react/dist/ssr";
 import { cn } from "@/helpers/classname-helper";
 
-const Root = ({
-  className,
-  ...props
-}: React.ComponentProps<typeof BaseNumberField.Root>) => (
-  <BaseNumberField.Root className={cn(className)} {...props} />
-);
+const Root = BaseNumberField.Root;
 
 const Group = ({
   className,

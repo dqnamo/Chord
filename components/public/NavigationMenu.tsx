@@ -47,7 +47,7 @@ const Icon = ({
 }: React.ComponentProps<typeof BaseNavigationMenu.Icon>) => (
   <BaseNavigationMenu.Icon
     className={cn(
-      "transition-transform duration-150 ease-out data-[popup-open]:rotate-180",
+      "transition-transform duration-150 ease-out data-[popup-open]:rotate-180 motion-reduce:transition-none",
       className,
     )}
     {...props}
@@ -60,7 +60,7 @@ const Content = ({
 }: React.ComponentProps<typeof BaseNavigationMenu.Content>) => (
   <BaseNavigationMenu.Content
     className={cn(
-      "w-52 p-1 transition-all duration-150 ease-out",
+      "w-52 p-1 transition-opacity duration-150 ease-out",
       "data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
       className,
     )}
@@ -101,7 +101,7 @@ const Popup = ({
   <BaseNavigationMenu.Popup
     className={cn(
       "medium-shadow rounded-lg border border-grayscale-3 bg-grayscale-1",
-      "origin-[var(--transform-origin)] transition-all duration-150 ease-out",
+      "origin-[var(--transform-origin)] transition-[transform,opacity] duration-150 ease-out motion-reduce:transition-none",
       "data-[starting-style]:scale-95 data-[starting-style]:opacity-0",
       "data-[ending-style]:scale-95 data-[ending-style]:opacity-0",
       "dark:border-grayscale-4 dark:bg-grayscale-2",

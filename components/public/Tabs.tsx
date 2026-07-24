@@ -50,7 +50,7 @@ const Indicator = ({
 }: React.ComponentProps<typeof BaseTabs.Indicator>) => (
   <BaseTabs.Indicator
     className={cn(
-      "absolute rounded-md bg-grayscale-3 transition-all duration-200 ease-out",
+      "absolute rounded-md bg-grayscale-3 transition-[left,top,width,height] duration-200 ease-out motion-reduce:transition-none",
       className,
     )}
     style={{
@@ -64,12 +64,7 @@ const Indicator = ({
   />
 );
 
-const Panel = ({
-  className,
-  ...props
-}: React.ComponentProps<typeof BaseTabs.Panel>) => (
-  <BaseTabs.Panel className={cn(className)} {...props} />
-);
+const Panel = BaseTabs.Panel;
 
 function TabsComponent({
   items,

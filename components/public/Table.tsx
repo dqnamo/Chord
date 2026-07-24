@@ -5,11 +5,11 @@ const Root = ({ className, ...props }: React.ComponentProps<"table">) => (
 );
 
 const Header = ({ className, ...props }: React.ComponentProps<"thead">) => (
-  <thead className={cn(className)} {...props} />
+  <thead className={className} {...props} />
 );
 
 const Body = ({ className, ...props }: React.ComponentProps<"tbody">) => (
-  <tbody className={cn(className)} {...props} />
+  <tbody className={className} {...props} />
 );
 
 const Row = ({ className, ...props }: React.ComponentProps<"tr">) => (

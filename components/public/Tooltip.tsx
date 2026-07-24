@@ -26,7 +26,7 @@ const Popup = ({
   <BaseTooltip.Popup
     className={cn(
       "rounded-md bg-grayscale-12 px-2 py-1 text-xs text-grayscale-1",
-      "origin-[var(--transform-origin)] transition-all duration-150 ease-out",
+      "origin-[var(--transform-origin)] transition-[transform,opacity] duration-150 ease-out motion-reduce:transition-none data-[instant]:transition-none",
       "data-[starting-style]:scale-95 data-[starting-style]:opacity-0",
       "data-[ending-style]:scale-95 data-[ending-style]:opacity-0",
       className,
