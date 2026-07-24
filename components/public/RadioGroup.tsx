@@ -25,7 +25,7 @@ const Item = ({
     )}
     {...props}
   >
-    <Radio.Indicator className="size-2 rounded-full bg-accent-9 transition-transform data-[unchecked]:scale-0" />
+    <Radio.Indicator className="size-2 rounded-full bg-accent-9 transition-[transform,opacity] duration-150 ease-out data-[unchecked]:scale-90 data-[unchecked]:opacity-0 motion-reduce:transition-none" />
   </Radio.Root>
 );
 

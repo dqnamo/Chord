@@ -7,7 +7,7 @@ export default function Skeleton({
   return (
     <div
       className={cn(
-        "animate-pulse rounded-md bg-grayscale-3 dark:bg-grayscale-4",
+        "animate-pulse rounded-md bg-grayscale-3 motion-reduce:animate-none dark:bg-grayscale-4",
         className,
       )}
       {...props}

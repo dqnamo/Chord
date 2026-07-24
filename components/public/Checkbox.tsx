@@ -1,3 +1,5 @@
+"use client";
+
 import { Checkbox as BaseCheckbox } from "@base-ui/react/checkbox";
 import { CheckIcon, MinusIcon } from "@phosphor-icons/react/dist/ssr";
 import { cn } from "@/helpers/classname-helper";

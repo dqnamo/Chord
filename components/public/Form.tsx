@@ -1,3 +1,5 @@
+"use client";
+
 import { Form as BaseForm } from "@base-ui/react/form";
 import { cn } from "@/helpers/classname-helper";
 

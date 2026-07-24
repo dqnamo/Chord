@@ -1,3 +1,5 @@
+"use client";
+
 import { Toggle as BaseToggle } from "@base-ui/react/toggle";
 import { cn } from "@/helpers/classname-helper";
 

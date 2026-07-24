@@ -24,7 +24,7 @@ const Thumb = ({
 }: React.ComponentProps<typeof BaseSwitch.Thumb>) => (
   <BaseSwitch.Thumb
     className={cn(
-      "aspect-square h-full rounded-full bg-grayscale-1 data-[checked]:bg-accent-4 dark:data-[checked]:bg-accent-12 shadow-sm transition-transform duration-150 data-[checked]:translate-x-3 dark:bg-grayscale-10",
+      "aspect-square h-full rounded-full bg-grayscale-1 data-[checked]:bg-accent-4 dark:data-[checked]:bg-accent-12 shadow-sm transition-transform duration-150 data-[checked]:translate-x-3 motion-reduce:transition-none dark:bg-grayscale-10",
       className,
     )}
     {...props}

@@ -21,12 +21,7 @@ const Viewport = ({
   />
 );
 
-const Content = ({
-  className,
-  ...props
-}: React.ComponentProps<typeof BaseScrollArea.Content>) => (
-  <BaseScrollArea.Content className={cn(className)} {...props} />
-);
+const Content = BaseScrollArea.Content;
 
 const Scrollbar = ({
   className,
@@ -51,12 +46,7 @@ const Thumb = ({
   />
 );
 
-const Corner = ({
-  className,
-  ...props
-}: React.ComponentProps<typeof BaseScrollArea.Corner>) => (
-  <BaseScrollArea.Corner className={cn(className)} {...props} />
-);
+const Corner = BaseScrollArea.Corner;
 
 export const ScrollArea = {
   Root,

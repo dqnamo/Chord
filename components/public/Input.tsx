@@ -1,3 +1,5 @@
+"use client";
+
 import { Input as BaseInput } from "@base-ui/react/input";
 import { cn } from "@/helpers/classname-helper";
 

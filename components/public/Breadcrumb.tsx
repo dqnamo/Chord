@@ -2,7 +2,7 @@ import { CaretRight } from "@phosphor-icons/react/dist/ssr";
 import { cn } from "@/helpers/classname-helper";
 
 const Root = ({ className, ...props }: React.ComponentProps<"nav">) => (
-  <nav aria-label="Breadcrumb" className={cn(className)} {...props} />
+  <nav aria-label="Breadcrumb" className={className} {...props} />
 );
 
 const List = ({ className, ...props }: React.ComponentProps<"ol">) => (

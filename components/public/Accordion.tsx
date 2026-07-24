@@ -22,12 +22,7 @@ const Item = ({
   />
 );
 
-const Header = ({
-  className,
-  ...props
-}: React.ComponentProps<typeof BaseAccordion.Header>) => (
-  <BaseAccordion.Header className={cn(className)} {...props} />
-);
+const Header = BaseAccordion.Header;
 
 const Trigger = ({
   className,
@@ -44,7 +39,7 @@ const Trigger = ({
     {children}
     <CaretDown
       weight="bold"
-      className="size-3.5 text-grayscale-10 transition-transform group-data-[panel-open]:rotate-180"
+      className="size-3.5 text-grayscale-10 transition-transform group-data-[panel-open]:rotate-180 motion-reduce:transition-none"
     />
   </BaseAccordion.Trigger>
 );
@@ -56,7 +51,7 @@ const Panel = ({
 }: React.ComponentProps<typeof BaseAccordion.Panel>) => (
   <BaseAccordion.Panel
     className={cn(
-      "h-[var(--accordion-panel-height)] overflow-hidden transition-[height] duration-150 ease-out data-[ending-style]:h-0 data-[starting-style]:h-0",
+      "h-[var(--accordion-panel-height)] overflow-hidden transition-[height] duration-150 ease-out motion-reduce:transition-none data-[ending-style]:h-0 data-[starting-style]:h-0",
       className,
     )}
     {...props}

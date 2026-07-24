@@ -1,3 +1,5 @@
+"use client";
+
 import { ToggleGroup as BaseToggleGroup } from "@base-ui/react/toggle-group";
 import { cn } from "@/helpers/classname-helper";
 

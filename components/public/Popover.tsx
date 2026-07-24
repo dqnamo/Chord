@@ -41,7 +41,7 @@ const Popup = ({
     className={cn(
       "medium-shadow w-64 rounded-xl border border-grayscale-3 bg-grayscale-1 p-3",
       "flex flex-col gap-1 origin-[var(--transform-origin)]",
-      "transition-all duration-150 ease-out",
+      "transition-[transform,opacity] duration-150 ease-out motion-reduce:transition-none",
       "data-[starting-style]:scale-95 data-[starting-style]:opacity-0",
       "data-[ending-style]:scale-95 data-[ending-style]:opacity-0",
       "dark:border-grayscale-4 dark:bg-grayscale-2",
