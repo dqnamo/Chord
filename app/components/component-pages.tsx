@@ -1,5 +1,5 @@
 import { showcases } from "@/components/showcases/registry";
-import type { ShowcaseCategory } from "@/helpers/showcase";
+import type { ShowcaseCategory, ShowcaseExample } from "@/helpers/showcase";
 
 export type ComponentPage = {
   slug: string;
@@ -12,8 +12,10 @@ export type ComponentPage = {
   previewTabs: {
     value: string;
     label: string;
+    description?: string;
     content: React.ReactNode;
   }[];
+  examples: ShowcaseExample[];
 };
 
 const categoryLabels: Record<ShowcaseCategory, string> = {
@@ -42,6 +44,7 @@ export const componentPages = showcases.map((showcase) => {
     componentFile: showcase.file,
     usageCode: showcase.usage,
     previewTabs: showcase.previewTabs,
+    examples: showcase.examples ?? [],
   };
 }) satisfies ComponentPage[];
 

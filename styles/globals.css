@@ -7,6 +7,7 @@
   --font-mono: var(--font-jetbrains-mono);
   --font-arvo: var(--font-arvo);
 
+  --color-grayscale-0: var(--grayscale-0);
   --color-grayscale-1: var(--gray-1);
   --color-grayscale-2: var(--gray-2);
   --color-grayscale-3: var(--gray-3);
@@ -97,6 +98,15 @@
   --color-sky-10: var(--sky-10);
   --color-sky-11: var(--sky-11);
   --color-sky-12: var(--sky-12);
+}
+
+:root,
+.light {
+  --grayscale-0: #fff;
+}
+
+.dark {
+  --grayscale-0: #000;
 }
 
 body {

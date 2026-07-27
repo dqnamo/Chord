@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Arvo, Inter, JetBrains_Mono, Pirata_One } from "next/font/google";
+import Footer from "@/components/Footer";
 import MobileHeader from "@/components/MobileHeader";
 import { ScrollArea } from "@/components/public/ScrollArea";
 import Sidebar from "@/components/Sidebar";
@@ -49,15 +50,19 @@ export default function RootLayout({
           <MobileHeader />
           <div className="flex h-dvh w-full pt-14 md:pt-0">
             <Sidebar />
-            <main className="min-w-0 flex-1">
-              <ScrollArea.Root className="group/main-scroll h-full min-h-0 w-full">
+            <main className="flex min-w-0 flex-1 flex-col">
+              <ScrollArea.Root className="group/main-scroll min-h-0 w-full flex-1">
                 <ScrollArea.Viewport className="h-full w-full">
-                  <ScrollArea.Content>{children}</ScrollArea.Content>
+                  <ScrollArea.Content>
+                    {children}
+                    <Footer className="md:hidden" />
+                  </ScrollArea.Content>
                 </ScrollArea.Viewport>
                 <ScrollArea.Scrollbar className="z-20 flex w-2 justify-center bg-transparent px-0.5 py-1 opacity-0 transition-opacity duration-150 group-hover/main-scroll:opacity-100 data-[hovering]:opacity-100 data-[scrolling]:opacity-100">
                   <ScrollArea.Thumb className="w-1 rounded-full bg-grayscale-5 transition-colors hover:bg-grayscale-7 dark:bg-grayscale-6 dark:hover:bg-grayscale-8" />
                 </ScrollArea.Scrollbar>
               </ScrollArea.Root>
+              <Footer className="hidden md:flex" />
             </main>
           </div>
         </ThemeProvider>

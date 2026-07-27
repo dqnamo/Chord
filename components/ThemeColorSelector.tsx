@@ -97,7 +97,7 @@ export default function ThemeColorSelector<TAxis extends ThemeColorAxis>({
             aria-label={`Use ${option.label} ${axis}`}
             aria-pressed={isSelected}
             className={cn(
-              "group relative flex size-5 aspect-square items-center justify-center border-grayscale-6 bg-grayscale-2 transition-colors hover:border-grayscale-9 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-9",
+              "group relative flex size-5 aspect-square cursor-pointer items-center justify-center rounded-full border-grayscale-6 bg-grayscale-2 transition-colors hover:border-grayscale-9 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-9",
             )}
             key={option.id}
             onClick={() => selectColor(option.id as ThemeColorValue<TAxis>)}
@@ -105,12 +105,12 @@ export default function ThemeColorSelector<TAxis extends ThemeColorAxis>({
             type="button"
           >
             <span
-              className="size-5 relative rounded-md aspect-square transition-transform group-hover:scale-110"
+              className="relative size-5 aspect-square rounded-full transition-transform group-hover:scale-110"
               style={{ backgroundColor: `var(--${option.id}-9)` }}
             />
             {isSelected ? (
               <div
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-2 bg-white rounded-xs"
+                className="absolute top-1/2 left-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white"
                 style={{ backgroundColor: `var(--${option.id}-5)` }}
               />
             ) : null}

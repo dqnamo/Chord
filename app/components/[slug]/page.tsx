@@ -41,10 +41,27 @@ export default async function ComponentPage({
     "utf8",
   );
 
-  const [usageCodeLines, componentCodeLines] = await Promise.all([
-    tokenize(page.usageCode, "tsx"),
-    tokenize(componentSource, "tsx"),
-  ]);
+  const [usageCodeLines, componentCodeLines, ...exampleCodeLines] =
+    await Promise.all([
+      tokenize(page.usageCode, "tsx"),
+      tokenize(componentSource, "tsx"),
+      ...page.examples.map(async (example) => {
+        const source = await readFile(
+          path.join(process.cwd(), example.sourceFile),
+          "utf8",
+        );
+
+        return tokenize(source, "tsx");
+      }),
+    ]);
+
+  const examples = page.examples.map((example, index) => ({
+    id: example.id,
+    title: example.title,
+    description: example.description,
+    content: example.content,
+    codeLines: exampleCodeLines[index] ?? [],
+  }));
 
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col p-4 md:p-8 lg:p-12">
@@ -58,6 +75,7 @@ export default async function ComponentPage({
       <div className="mt-6">
         <ComponentShowcase
           componentCodeLines={componentCodeLines}
+          examples={examples}
           id={page.slug}
           previewTabs={page.previewTabs}
           usageCodeLines={usageCodeLines}

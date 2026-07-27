@@ -22,6 +22,17 @@ export const SHOWCASE_CATEGORY_ORDER: ShowcaseCategory[] = [
 export type ShowcasePreviewTab = {
   value: string;
   label: string;
+  description?: string;
+  content: ReactNode;
+};
+
+export type ShowcaseExample = {
+  /** Stable kebab-case id, also used as the section anchor. */
+  id: string;
+  title: string;
+  description: string;
+  /** Workspace-relative source file rendered in the example's code card. */
+  sourceFile: string;
   content: ReactNode;
 };
 
@@ -36,4 +47,6 @@ export type ShowcaseDef = {
   /** Raw usage snippet shown in the Usage tab. */
   usage: string;
   previewTabs: ShowcasePreviewTab[];
+  /** Standalone behaviors that are not component variants. */
+  examples?: ShowcaseExample[];
 };

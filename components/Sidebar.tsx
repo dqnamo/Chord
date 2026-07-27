@@ -64,7 +64,7 @@ export default function Sidebar() {
       <div className="flex min-h-0 flex-1 flex-col">
         <SidebarNavContent />
       </div>
-      <div className="flex items-center justify-between border-grayscale-3 border-t p-3 dark:border-grayscale-2">
+      <div className="flex h-10 items-center justify-between border-grayscale-3 border-t px-3">
         <p className="font-mono font-medium text-grayscale-9 text-xs">
           V{packageJson.version}
         </p>
