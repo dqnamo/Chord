@@ -9,6 +9,7 @@ import sc_badge from "./badge";
 import sc_breadcrumb from "./breadcrumb";
 import sc_button from "./button";
 import sc_button_group from "./button-group";
+import sc_calendar from "./calendar";
 import sc_card from "./card";
 import sc_checkbox from "./checkbox";
 import sc_checkbox_group from "./checkbox-group";
@@ -65,6 +66,7 @@ export const showcases: ShowcaseDef[] = [
   sc_breadcrumb,
   sc_button,
   sc_button_group,
+  sc_calendar,
   sc_card,
   sc_checkbox,
   sc_checkbox_group,

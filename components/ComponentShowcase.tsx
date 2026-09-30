@@ -137,7 +137,7 @@ export default function ComponentShowcase({
                   <Tabs.Base.Panel
                     key={tab.value}
                     value={tab.value}
-                    className="mt-0"
+                    className="mt-0 min-w-0 w-full"
                   >
                     <div className="flex justify-center items-center h-full w-full">
                       {tab.content}
