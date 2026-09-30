@@ -28,6 +28,11 @@ Copy-paste components live in `components/public/`:
 - **TextLink** — styled anchor
 - **Tabs** — tabbed navigation with animated indicator
 - **Switch** — toggle switch
+- **Calendar** — production event calendar with month, week, day, and agenda views
+
+Calendar is a multi-file component bundle. See
+[`docs/calendar.md`](docs/calendar.md) for its event model, composable API,
+keyboard interaction, and integration guide.
 
 ## Theming
 
@@ -43,3 +48,5 @@ Chord supports swappable grayscale and accent color palettes via Radix Colors. P
 | `npm run lint` | Lint with Biome |
 | `npm run format` | Format with Biome |
 | `npm run check` | Lint + format check |
+| `npm run test` | Run unit and component tests |
+| `npm run test:e2e` | Run calendar browser and accessibility tests |

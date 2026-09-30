@@ -8,6 +8,7 @@ export type ComponentPage = {
   description: string;
   category: ShowcaseCategory;
   componentFile: string;
+  componentFiles: string[];
   usageCode: string;
   previewTabs: {
     value: string;
@@ -42,6 +43,7 @@ export const componentPages = showcases.map((showcase) => {
     category: showcase.category,
     description: `${displayTitle} is a Chord ${categoryLabels[showcase.category]} component built from Base UI primitives and project tokens.`,
     componentFile: showcase.file,
+    componentFiles: showcase.files ?? [showcase.file],
     usageCode: showcase.usage,
     previewTabs: showcase.previewTabs,
     examples: showcase.examples ?? [],

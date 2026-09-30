@@ -44,6 +44,8 @@ export type ShowcaseDef = {
   category: ShowcaseCategory;
   /** File name inside `components/public`, e.g. "Dialog.tsx". Its source is shown in the Component tab. */
   file: string;
+  /** Complete copy-paste bundle for components that span more than one file. */
+  files?: string[];
   /** Raw usage snippet shown in the Usage tab. */
   usage: string;
   previewTabs: ShowcasePreviewTab[];

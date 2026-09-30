@@ -19,6 +19,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
   { id: "breadcrumb", title: "The Breadcrumb", category: "Navigation" },
   { id: "button", title: "The Button", category: "Buttons & Actions" },
   { id: "button-group", title: "The Button Group", category: "Layout" },
+  { id: "calendar", title: "The Calendar", category: "Data Display" },
   { id: "card", title: "The Card", category: "Layout" },
   { id: "checkbox", title: "The Checkbox", category: "Forms & Inputs" },
   {

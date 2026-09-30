@@ -36,10 +36,24 @@ export default async function ComponentPage({
     notFound();
   }
 
-  const componentSource = await readFile(
-    path.join(process.cwd(), "components", "public", page.componentFile),
-    "utf8",
+  const componentSources = await Promise.all(
+    page.componentFiles.map(async (file) => ({
+      file,
+      source: await readFile(
+        path.join(
+          /* turbopackIgnore: true */
+          process.cwd(),
+          "components",
+          "public",
+          file,
+        ),
+        "utf8",
+      ),
+    })),
   );
+  const componentSource = componentSources
+    .map(({ file, source }) => `// components/public/${file}\n${source}`)
+    .join("\n\n");
 
   const [usageCodeLines, componentCodeLines, ...exampleCodeLines] =
     await Promise.all([
@@ -47,7 +61,11 @@ export default async function ComponentPage({
       tokenize(componentSource, "tsx"),
       ...page.examples.map(async (example) => {
         const source = await readFile(
-          path.join(process.cwd(), example.sourceFile),
+          path.join(
+            /* turbopackIgnore: true */
+            process.cwd(),
+            example.sourceFile,
+          ),
           "utf8",
         );
 
